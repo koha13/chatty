@@ -1,0 +1,143 @@
+:root {
+  --usb-bg: #15574f;
+}
+
+input,
+input:focus {
+  outline: 0px !important;
+  -webkit-appearance: none;
+}
+::-webkit-scrollbar-track {
+  border-radius: 10px;
+  background-color: transparent;
+}
+::-webkit-scrollbar {
+  width: 8px;
+  background-color: transparent;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  background-color: rgb(23, 24, 32);
+}
+
+/* Main */
+.bootstrap_chat {
+  background-color: #74ebd5;
+  height: 100vh;
+  width: 100vw;
+}
+
+.text-small {
+  font-size: 0.9rem;
+}
+
+.header {
+  height: 42px;
+  background: white;
+}
+
+.content {
+  height: calc(100% - 42px);
+  overflow: hidden;
+}
+
+.user-box {
+  background-color: var(--usb-bg);
+}
+
+.user-box .usb-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 45px;
+}
+
+.user-box .usb-content {
+  height: calc(100% - 45px);
+  overflow-y: scroll;
+}
+
+.user-box .usb-user {
+  background-color: transparent;
+  color: white !important;
+  /* border: solid 1px black; */
+  border: none;
+  cursor: pointer;
+}
+.user-box .usb-user.active {
+  font-weight: 500;
+  color: white !important;
+  background-color: #a79f8b;
+}
+
+.chat-box {
+  background-color: #aab582;
+  height: 100%;
+}
+.chat-box .cb-header {
+  height: 60px;
+  background-color: #f3d476;
+}
+.chat-box .cb-header .img-contain {
+  width: 50px;
+}
+.chat-box .cb-header .img-contain img {
+  width: 50px;
+  object-fit: contain;
+}
+
+.chat-box .cb-content {
+  /* height: calc(100% - 60px); */
+  overflow-y: scroll;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+.user_img_msg {
+  height: 40px;
+  width: 40px;
+  border: 1px solid black;
+}
+.img_cont {
+  position: relative;
+  height: 70px;
+  width: 70px;
+}
+.msg_cotainer {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  border: solid 1px black;
+  padding: 10px;
+  position: relative;
+  max-width: 50%;
+  word-wrap: break-word;
+  background-color: white;
+}
+.msg_cotainer_send {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+  border: solid 1px black;
+  padding: 10px;
+  position: relative;
+  max-width: 50%;
+  word-wrap: break-word;
+  background-color: white;
+}
+.msg_time {
+  position: absolute;
+  left: 0;
+  bottom: -15px;
+  color: rgb(26, 24, 24);
+  font-size: 10px;
+}
+.msg_time_send {
+  position: absolute;
+  right: 0;
+  bottom: -15px;
+  color: rgb(26, 24, 24);
+  font-size: 10px;
+}
