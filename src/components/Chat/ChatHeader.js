@@ -13,7 +13,7 @@ export default () => {
       </div>
       <div className="flex-grow-1 d-flex flex-column justify-content-center">
         <h6 className="p-0 m-0">Jason Doe</h6>
-        <p className="p-0 m-0 text-small text-muted">100000 messages</p>
+        <p className="p-0 m-0 text-small text-muted">online</p>
       </div>
       <i className="fas fa-ellipsis-v m-2"></i>
     </div>
