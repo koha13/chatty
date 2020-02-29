@@ -2,6 +2,7 @@ import React from "react";
 import Header from "./Header";
 import Sidebar from "./Sidebar/";
 import Chat from "./Chat/";
+import { Switch, Route } from "react-router-dom";
 
 export default class App extends React.Component {
   render() {
@@ -12,8 +13,12 @@ export default class App extends React.Component {
       >
         <Header />
         <div className="row content">
-          <Sidebar />
-          <Chat />
+          {window.innerWidth > 1000 ? <Sidebar /> : null}
+          <Switch>
+            <Route exact path="/room/:id">
+              <Chat />
+            </Route>
+          </Switch>
         </div>
       </div>
     );

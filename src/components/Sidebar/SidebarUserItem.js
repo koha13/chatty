@@ -1,8 +1,12 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default () => {
   return (
-    <a className="list-group-item list-group-item-action rounded-0 usb-user active">
+    <Link
+      to="/room/1"
+      className="list-group-item list-group-item-action rounded-0 usb-user active"
+    >
       <div className="media">
         <img
           alt="User avatar"
@@ -17,6 +21,6 @@ export default () => {
           <small className="small font-weight-bold">25 Dec</small>
         </div>
       </div>
-    </a>
+    </Link>
   );
 };

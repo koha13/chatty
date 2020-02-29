@@ -5,7 +5,7 @@ import ChatTyping from "./ChatTyping";
 
 export default () => {
   return (
-    <div className="col-6 px-0 chat-box d-flex flex-column">
+    <div className="col-lg-6 col-sm-12 px-0 chat-box d-flex flex-column">
       <ChatHeader />
 
       <ChatBody />
