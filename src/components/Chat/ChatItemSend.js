@@ -7,6 +7,7 @@ export default () => {
         <img
           src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
           className="rounded-circle user_img_msg"
+          alt="User avatar"
         />
       </div>
       <div className="msg_cotainer">
