@@ -1,10 +1,12 @@
 import { createStore, combineReducers } from "redux";
 import { composeWithDevTools } from "redux-devtools-extension";
-import { user, rooms } from "./reducers";
+import { user, rooms, currentRoom, messages } from "./reducers";
 
 const rootReducer = combineReducers({
   user,
-  rooms
+  rooms,
+  currentRoom,
+  messages
 });
 
 const store = createStore(rootReducer, composeWithDevTools());

@@ -14,11 +14,8 @@ class PrivateRoute extends React.Component {
       })
       .then(res => {
         this.props.addRooms(res.data);
-        console.log(res.data);
       })
-      .catch(err => {
-        console.log(err.response);
-      });
+      .catch(err => {});
   }
 
   render() {

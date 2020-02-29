@@ -1,8 +1,9 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
-
-export default class SidebarUserItem extends React.Component {
+import { connect } from "react-redux";
+import { changeCurrentRoom, resetMessages } from "../../redux/actions";
+class SidebarUserItem extends React.Component {
   state = {
     nameRoom: "   "
   };
@@ -14,10 +15,14 @@ export default class SidebarUserItem extends React.Component {
       let userGet = this.props.room.users.filter(
         user => user._id !== this.props.user._id
       );
-      console.log(userGet);
       this.setState({ nameRoom: userGet[0].name });
     }
   }
+
+  handleChangeRoom = () => {
+    this.props.changeCurrentRoom(this.props.room);
+    this.props.resetMessages();
+  };
 
   render() {
     return (
@@ -25,6 +30,7 @@ export default class SidebarUserItem extends React.Component {
         to={"/room/" + this.props.room._id}
         className="list-group-item list-group-item-action rounded-0 usb-user "
         activeClassName="active"
+        onClick={this.handleChangeRoom}
       >
         <div className="media">
           <Badge
@@ -56,3 +62,6 @@ export default class SidebarUserItem extends React.Component {
     );
   }
 }
+export default connect(null, { changeCurrentRoom, resetMessages })(
+  SidebarUserItem
+);
