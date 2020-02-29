@@ -8,7 +8,11 @@ class SidebarBody extends React.Component {
       <div className="usb-content">
         <div className="list-group rounded-0">
           {this.props.rooms.map(room => (
-            <SidebarUserItem room={room} key={room._id} />
+            <SidebarUserItem
+              room={room}
+              key={room._id}
+              user={this.props.user}
+            />
           ))}
         </div>
       </div>
@@ -17,7 +21,8 @@ class SidebarBody extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  rooms: state.rooms
+  rooms: state.rooms,
+  user: state.user
 });
 
 export default connect(mapStateToProps)(SidebarBody);

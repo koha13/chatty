@@ -80,7 +80,7 @@ class LoginScreen extends Component {
                   value={this.state.Email}
                   onChange={this.handleInputChange}
                 />
-                {this.state.errorEmail == "" ? null : (
+                {this.state.errorEmail === "" ? null : (
                   <div className="alert-validate">
                     <div className="alert-content">{this.state.errorEmail}</div>
                   </div>
@@ -94,7 +94,7 @@ class LoginScreen extends Component {
                   value={this.state.password}
                   onChange={this.handleInputChange}
                 />
-                {this.state.errorPassword == "" ? null : (
+                {this.state.errorPassword === "" ? null : (
                   <div className="alert-validate">
                     <div className="alert-content">
                       {this.state.errorPassword}
