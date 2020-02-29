@@ -2,10 +2,10 @@
   --usb-bg: #15574f;
 }
 
-input,
-input:focus {
-  outline: 0px !important;
-  -webkit-appearance: none;
+*:focus {
+  outline-width: 0.1px !important;
+  outline-color: transparent !important;
+  outline-style: dotted !important;
 }
 ::-webkit-scrollbar-track {
   border-radius: 10px;
