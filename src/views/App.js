@@ -1,16 +1,10 @@
 import React from "react";
-import Header from "./Header";
-import Sidebar from "./Sidebar/";
-import Chat from "./Chat/";
-import {
-  Switch,
-  Route,
-  Redirect,
-  useHistory,
-  useLocation
-} from "react-router-dom";
+import Header from "../components/Header";
+import Sidebar from "../components/Sidebar/";
+import Chat from "../components/Chat/";
+import { Switch, Route } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
-import { Provider } from "react-redux";
+import PrivateRoute from "./PrivateRoute";
 
 export default class App extends React.Component {
   render() {
@@ -38,24 +32,4 @@ export default class App extends React.Component {
       </Switch>
     );
   }
-}
-
-function PrivateRoute({ children, ...rest }) {
-  return (
-    <Route
-      {...rest}
-      render={({ location }) =>
-        true ? (
-          children
-        ) : (
-          <Redirect
-            to={{
-              pathname: "/login",
-              state: { from: location }
-            }}
-          />
-        )
-      }
-    />
-  );
 }

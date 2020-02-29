@@ -1,12 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 
-export default () => {
+export default props => {
   return (
-    <Link
-      to="/room/1"
-      className="list-group-item list-group-item-action rounded-0 usb-user active"
+    <NavLink
+      to={"/room/" + props.num}
+      className="list-group-item list-group-item-action rounded-0 usb-user "
+      activeClassName="active"
     >
       <div className="media">
         <Badge
@@ -27,11 +28,13 @@ export default () => {
 
         <div className="media-body ml-4 d-inline-block text-truncate">
           <div className="d-flex align-items-center justify-content-between mb-1">
-            <h6 className="mb-0">Jason Doe</h6>
+            <h6 className="mb-0">{props.room._id}</h6>
           </div>
-          <small className="small font-weight-bold">25 Dec</small>
+          <small className="small font-weight-bold">
+            {props.room.updatedAt}
+          </small>
         </div>
       </div>
-    </Link>
+    </NavLink>
   );
 };
