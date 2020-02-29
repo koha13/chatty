@@ -5,13 +5,15 @@ import auth from "../axios/auth";
 import { login } from "../redux/actions";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
+import CircularProgress from "@material-ui/core/CircularProgress";
 
 class LoginScreen extends Component {
   state = {
     email: "",
     password: "",
     errorEmail: "",
-    errorPassword: ""
+    errorPassword: "",
+    loading: false
   };
 
   handleInputChange = event => {
@@ -45,6 +47,7 @@ class LoginScreen extends Component {
       check = false;
     }
     if (check) {
+      this.setState({ loading: true });
       auth
         .post("/login", {
           email: this.state.email,
@@ -57,6 +60,7 @@ class LoginScreen extends Component {
         .catch(err => {
           this.setState({ email: "" });
           this.setState({ password: "" });
+          this.setState({ loading: false });
         });
     }
   };
@@ -98,8 +102,17 @@ class LoginScreen extends Component {
                   </div>
                 )}
               </div>
-              <Button variant="contained" color="primary" type="submit">
-                SUCK
+              <Button
+                variant="contained"
+                color="primary"
+                type="submit"
+                size="medium"
+              >
+                {this.state.loading ? (
+                  <CircularProgress color="secondary" size={24} />
+                ) : (
+                  "GOO"
+                )}
               </Button>
             </div>
           </form>
