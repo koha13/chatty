@@ -1,11 +1,18 @@
 import React from "react";
 
-export default () => {
+export default ({ message }) => {
   return (
-    <div className="d-flex justify-content-end mb-4">
-      <div className="msg_cotainer_send">
-        Hi Khalid
-        <span className="msg_time_send">8:55 AM, Today</span>
+    <div className="d-flex justify-content-start mb-4">
+      <div className="img_cont_msg">
+        <img
+          src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+          className="rounded-circle user_img_msg"
+          alt="User avatar"
+        />
+      </div>
+      <div className="msg_cotainer">
+        {message.content}
+        {/* <span className="msg_time">8:40 AM, Today</span> */}
       </div>
     </div>
   );
