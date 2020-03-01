@@ -40,7 +40,10 @@ class Chat extends React.Component {
   render() {
     return (
       <div className="col-lg-6 col-sm-12 px-0 chat-box d-flex flex-column">
-        <ChatHeader currentRoom={this.props.currentRoom} />
+        <ChatHeader
+          currentRoom={this.props.currentRoom}
+          user={this.props.user}
+        />
 
         <ChatBody />
 

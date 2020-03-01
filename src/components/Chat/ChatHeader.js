@@ -1,21 +1,39 @@
 import React from "react";
 
-export default ({ currentRoom }) => {
-  return (
-    <div className="cb-header d-flex flex-row justify-content-start align-items-center px-2">
-      <div className="img-contain m-2" style={{ width: "50px" }}>
-        <img
-          src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
-          alt="user"
-          width="50"
-          className="rounded-circle"
-        />
+export default class ChatHeader extends React.Component {
+  state = {
+    nameRoom: "   ",
+    status: "online"
+  };
+
+  componentDidMount() {
+    if (this.props.currentRoom.type === "group") {
+      this.setState({ nameRoom: this.props.currentRoom.name });
+    } else {
+      let userGet = this.props.currentRoom.users.filter(
+        user => user._id !== this.props.user._id
+      );
+      this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
+    }
+  }
+
+  render() {
+    return (
+      <div className="cb-header d-flex flex-row justify-content-start align-items-center px-2">
+        <div className="img-contain m-2" style={{ width: "50px" }}>
+          <img
+            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+            alt="user"
+            width="50"
+            className="rounded-circle"
+          />
+        </div>
+        <div className="flex-grow-1 d-flex flex-column justify-content-center">
+          <h6 className="p-0 m-0">{this.state.nameRoom}</h6>
+          <p className="p-0 m-0 text-small text-muted">{this.state.status}</p>
+        </div>
+        <i className="fas fa-ellipsis-v m-2"></i>
       </div>
-      <div className="flex-grow-1 d-flex flex-column justify-content-center">
-        <h6 className="p-0 m-0">{currentRoom._id}</h6>
-        <p className="p-0 m-0 text-small text-muted">online</p>
-      </div>
-      <i className="fas fa-ellipsis-v m-2"></i>
-    </div>
-  );
-};
+    );
+  }
+}
