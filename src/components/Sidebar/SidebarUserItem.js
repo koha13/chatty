@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import { changeCurrentRoom, resetMessages } from "../../redux/actions";
 class SidebarUserItem extends React.Component {
   state = {
-    nameRoom: "   "
+    nameRoom: "   ",
+    status: "online"
   };
 
   componentDidMount() {
@@ -15,7 +16,7 @@ class SidebarUserItem extends React.Component {
       let userGet = this.props.room.users.filter(
         user => user._id !== this.props.user._id
       );
-      this.setState({ nameRoom: userGet[0].name });
+      this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
     }
   }
 
@@ -38,8 +39,8 @@ class SidebarUserItem extends React.Component {
               vertical: "bottom",
               horizontal: "right"
             }}
-            color="error"
-            badgeContent={"offline"}
+            color={this.state.status === "online" ? "primary" : "error"}
+            badgeContent={this.state.status}
           >
             <img
               alt="User avatar"
