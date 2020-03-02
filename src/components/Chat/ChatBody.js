@@ -4,11 +4,28 @@ import ChatItemReceive from "./ChatItemSend";
 import { connect } from "react-redux";
 
 class ChatBody extends React.Component {
+  constructor(props) {
+    super(props);
+    this.divRef = React.createRef();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.messages.length === 0) {
+      this.divRef.current.scrollTop = this.divRef.current.scrollHeight;
+    } else {
+      var isScrolled =
+        this.divRef.current.scrollHeight -
+        this.divRef.current.scrollTop -
+        this.divRef.current.clientHeight;
+      if (isScrolled <= this.divRef.current.clientHeight)
+        this.divRef.current.scrollTop = this.divRef.current.scrollHeight;
+    }
+  }
+
   render() {
-    console.log(this.props.messages);
     let result = Object.keys(this.props.messages).reverse();
     return (
-      <div className="cb-content px-4 pt-2 flex-grow-1">
+      <div className="cb-content px-4 pt-2 flex-grow-1" ref={this.divRef}>
         {result.map(key => {
           if (this.props.messages[key].user !== this.props.user._id) {
             return (
