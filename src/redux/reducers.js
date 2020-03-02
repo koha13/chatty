@@ -3,7 +3,8 @@ import {
   ADD_ROOM,
   CHANGE_CURRENT_ROOM,
   RESET_MESSAGE,
-  GET_MESSAGES
+  GET_MESSAGES,
+  ADD_MESSAGE
 } from "./actions";
 
 export const user = (state = {}, action) => {
@@ -40,6 +41,8 @@ export const messages = (state = [], action) => {
       return [];
     case GET_MESSAGES:
       return action.payload.messages;
+    case ADD_MESSAGE:
+      return [action.payload.message, ...state];
     default:
       return state;
   }
