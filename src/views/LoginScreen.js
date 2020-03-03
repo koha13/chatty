@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import validator from "validator";
-import auth from "../axios/auth";
 import { login } from "../redux/actions";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
@@ -12,9 +11,15 @@ class LoginScreen extends Component {
     email: "",
     password: "",
     errorEmail: "",
-    errorPassword: "",
-    loading: false
+    errorPassword: ""
   };
+
+  static getDerivedStateFromProps(nxtProps) {
+    if (nxtProps.user.token) {
+      nxtProps.history.push("/");
+    }
+    return null;
+  }
 
   handleInputChange = event => {
     const target = event.target;
@@ -48,20 +53,7 @@ class LoginScreen extends Component {
     }
     if (check) {
       this.setState({ loading: true });
-      auth
-        .post("/login", {
-          email: this.state.email,
-          password: this.state.password
-        })
-        .then(res => {
-          this.props.login({ ...res.data.user, token: res.data.token });
-          this.props.history.replace("/");
-        })
-        .catch(err => {
-          this.setState({ email: "" });
-          this.setState({ password: "" });
-          this.setState({ loading: false });
-        });
+      this.props.login(this.state.email, this.state.password);
     }
   };
 
@@ -108,7 +100,7 @@ class LoginScreen extends Component {
                 type="submit"
                 size="medium"
               >
-                {this.state.loading ? (
+                {this.props.user.isFetching ? (
                   <CircularProgress color="secondary" size={24} />
                 ) : (
                   "GOO"
@@ -122,4 +114,10 @@ class LoginScreen extends Component {
   }
 }
 
-export default withRouter(connect(null, { login: login })(LoginScreen));
+const mapStateToProps = state => ({
+  user: state.user
+});
+
+export default withRouter(
+  connect(mapStateToProps, { login: login })(LoginScreen)
+);
