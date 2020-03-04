@@ -76,11 +76,22 @@ export const getMessages = () => {
   };
 };
 
-export const addMessage = message => {
-  return {
-    type: ADD_MESSAGE,
-    payload: {
-      message
-    }
+export const addMessage = contentMessage => {
+  return (dispatch, getState) => {
+    messageApi
+      .post(
+        "/" + getState().currentRoom._id,
+        {
+          content: contentMessage
+        },
+        {
+          headers: {
+            Authorization: "Bearer " + getState().user.token
+          }
+        }
+      )
+      .then(res => {
+        dispatch({ type: ADD_MESSAGE, payload: res.data });
+      });
   };
 };

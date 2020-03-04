@@ -1,5 +1,4 @@
 import React from "react";
-import messageApi from "../../axios/message";
 import { connect } from "react-redux";
 import { addMessage } from "../../redux/actions";
 
@@ -13,22 +12,8 @@ class ChatTyping extends React.Component {
   };
 
   handleSubmit = () => {
-    messageApi
-      .post(
-        "/" + this.props.currentRoom._id,
-        {
-          content: this.state.chatContent
-        },
-        {
-          headers: {
-            Authorization: "Bearer " + this.props.user.token
-          }
-        }
-      )
-      .then(res => {
-        this.props.addMessage(res.data);
-        this.setState({ chatContent: "" });
-      });
+    this.props.addMessage(this.state.chatContent);
+    this.setState({ chatContent: "" });
   };
 
   render() {
@@ -58,11 +43,4 @@ class ChatTyping extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    currentRoom: state.currentRoom,
-    user: state.user
-  };
-};
-
-export default connect(mapStateToProps, { addMessage })(ChatTyping);
+export default connect(null, { addMessage })(ChatTyping);
