@@ -23,24 +23,13 @@ class ChatBody extends React.Component {
   }
 
   render() {
-    let result = Object.keys(this.props.messages).reverse();
+    let result = this.props.messages.reverse();
     return (
       <div className="cb-content px-4 pt-2 flex-grow-1" ref={this.divRef}>
-        {result.map(key => {
-          if (this.props.messages[key].user !== this.props.user._id) {
-            return (
-              <ChatItemSend
-                key={this.props.messages[key]._id}
-                message={this.props.messages[key]}
-              />
-            );
-          } else
-            return (
-              <ChatItemReceive
-                key={this.props.messages[key]._id}
-                message={this.props.messages[key]}
-              />
-            );
+        {result.map(message => {
+          if (message.user !== this.props.user._id) {
+            return <ChatItemSend key={message._id} message={message} />;
+          } else return <ChatItemReceive key={message._id} message={message} />;
         })}
       </div>
     );
