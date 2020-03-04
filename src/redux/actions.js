@@ -1,5 +1,6 @@
 import auth from "../axios/auth";
 import roomApi from "../axios/room";
+import messageApi from "../axios/message";
 
 export const LOG_IN = "LOG_IN";
 export const ADD_ROOM = "ADD_ROOM";
@@ -61,12 +62,17 @@ export const resetMessages = () => {
   };
 };
 
-export const getMessages = messages => {
-  return {
-    type: GET_MESSAGES,
-    payload: {
-      messages
-    }
+export const getMessages = () => {
+  return (dispatch, getState) => {
+    messageApi
+      .get("/" + getState().currentRoom._id, {
+        headers: {
+          Authorization: "Bearer " + getState().user.token
+        }
+      })
+      .then(res => {
+        dispatch({ type: GET_MESSAGES, payload: res.data });
+      });
   };
 };
 

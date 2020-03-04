@@ -2,7 +2,11 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
 import { connect } from "react-redux";
-import { changeCurrentRoom, resetMessages } from "../../redux/actions";
+import {
+  changeCurrentRoom,
+  resetMessages,
+  getMessages
+} from "../../redux/actions";
 class SidebarUserItem extends React.Component {
   state = {
     nameRoom: "   ",
@@ -23,6 +27,7 @@ class SidebarUserItem extends React.Component {
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);
     this.props.resetMessages();
+    this.props.getMessages();
   };
 
   render() {
@@ -63,6 +68,6 @@ class SidebarUserItem extends React.Component {
     );
   }
 }
-export default connect(null, { changeCurrentRoom, resetMessages })(
+export default connect(null, { changeCurrentRoom, resetMessages, getMessages })(
   SidebarUserItem
 );

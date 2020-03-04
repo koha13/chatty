@@ -55,7 +55,7 @@ export const messages = (state = [], action) => {
     case RESET_MESSAGE:
       return [];
     case GET_MESSAGES:
-      return action.payload.messages;
+      return action.payload;
     case ADD_MESSAGE:
       return [action.payload.message, ...state];
     default:
