@@ -15,7 +15,7 @@ export const user = (
 ) => {
   switch (action.type) {
     case LOG_IN:
-      return { ...action.payload, isInvalid: false, isFetching: false };
+      return { ...action.payload };
     case INVALID_LOGIN: {
       return { ...state, isInvalid: true, isFetching: false };
     }
@@ -35,7 +35,7 @@ export const user = (
 export const rooms = (state = [], action) => {
   switch (action.type) {
     case ADD_ROOM:
-      return action.payload.rooms;
+      return [...action.payload];
     default:
       return state;
   }

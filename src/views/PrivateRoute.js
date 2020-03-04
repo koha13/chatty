@@ -1,21 +1,11 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import roomApi from "../axios/room";
 import { addRooms } from "../redux/actions";
 import { connect } from "react-redux";
 
 class PrivateRoute extends React.Component {
   componentDidMount() {
-    roomApi
-      .get("/", {
-        headers: {
-          Authorization: "Bearer " + this.props.user.token
-        }
-      })
-      .then(res => {
-        this.props.addRooms(res.data);
-      })
-      .catch(err => {});
+    this.props.addRooms();
   }
 
   render() {
@@ -40,8 +30,4 @@ class PrivateRoute extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  user: state.user
-});
-
-export default connect(mapStateToProps, { addRooms: addRooms })(PrivateRoute);
+export default connect(null, { addRooms: addRooms })(PrivateRoute);

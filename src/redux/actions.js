@@ -1,4 +1,5 @@
 import auth from "../axios/auth";
+import roomApi from "../axios/room";
 
 export const LOG_IN = "LOG_IN";
 export const ADD_ROOM = "ADD_ROOM";
@@ -24,17 +25,24 @@ export const login = (email, password) => {
         });
       })
       .catch(err => {
-        dispatch({ type: INVALID_LOGIN });
+        if (err.response) {
+          dispatch({ type: INVALID_LOGIN });
+        }
       });
   };
 };
 
-export const addRooms = rooms => {
-  return {
-    type: ADD_ROOM,
-    payload: {
-      rooms: rooms
-    }
+export const addRooms = () => {
+  return (dispatch, getState) => {
+    roomApi
+      .get("/", {
+        headers: {
+          Authorization: "Bearer " + getState().user.token
+        }
+      })
+      .then(res => {
+        dispatch({ type: ADD_ROOM, payload: res.data });
+      });
   };
 };
 
