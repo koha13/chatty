@@ -10,6 +10,7 @@ export const GET_MESSAGES = "GET_MESSAGES";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const INVALID_LOGIN = "INVALID_LOGIN";
+export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
 
 export const login = (email, password) => {
   return dispatch => {
@@ -44,6 +45,16 @@ export const addRooms = () => {
       .then(res => {
         dispatch({ type: ADD_ROOM, payload: res.data });
       });
+  };
+};
+
+export const updateUserStatusInRoom = (user, status) => {
+  return {
+    type: UPDATE_STATUS_USER_IN_ROOM,
+    payload: {
+      user,
+      status
+    }
   };
 };
 

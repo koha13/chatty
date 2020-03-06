@@ -17,6 +17,19 @@ export default class ChatHeader extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.currentRoom !== this.props.currentRoom) {
+      if (this.props.currentRoom.type === "group") {
+        this.setState({ nameRoom: this.props.currentRoom.name });
+      } else {
+        let userGet = this.props.currentRoom.users.filter(
+          user => user._id !== this.props.user._id
+        );
+        this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
+      }
+    }
+  }
+
   render() {
     return (
       <div className="cb-header d-flex flex-row justify-content-start align-items-center px-2">

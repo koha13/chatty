@@ -6,8 +6,10 @@ import {
   GET_MESSAGES,
   ADD_MESSAGE,
   INVALID_LOGIN,
-  REQUEST_LOGIN
+  REQUEST_LOGIN,
+  UPDATE_STATUS_USER_IN_ROOM
 } from "./actions";
+import cloneDeep from "lodash/cloneDeep";
 
 export const user = (
   state = { isFetching: false, isInvalid: false, data: {} },
@@ -36,6 +38,19 @@ export const rooms = (state = [], action) => {
   switch (action.type) {
     case ADD_ROOM:
       return [...action.payload];
+    case UPDATE_STATUS_USER_IN_ROOM: {
+      let temp = cloneDeep(state);
+      for (let i = 0; i < temp.length; i++) {
+        for (let j = 0; j < temp[i].users.length; j++) {
+          if (
+            String(temp[i].users[j]._id) === String(action.payload.user._id)
+          ) {
+            temp[i].users[j].status = action.payload.status;
+          }
+        }
+      }
+      return temp;
+    }
     default:
       return state;
   }
@@ -45,6 +60,15 @@ export const currentRoom = (state = {}, action) => {
   switch (action.type) {
     case CHANGE_CURRENT_ROOM:
       return action.payload.room;
+    case UPDATE_STATUS_USER_IN_ROOM: {
+      let temp = cloneDeep(state);
+      for (let i = 0; i < temp.users.length; i++) {
+        if (String(temp.users[i]._id) === String(action.payload.user._id)) {
+          temp.users[i].status = action.payload.status;
+        }
+      }
+      return temp;
+    }
     default:
       return state;
   }

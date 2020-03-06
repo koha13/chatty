@@ -24,6 +24,19 @@ class SidebarUserItem extends React.Component {
     }
   }
 
+  componentDidUpdate(previousProps) {
+    if (previousProps.room !== this.props.room) {
+      if (this.props.room.type === "group") {
+        this.setState({ nameRoom: this.props.room.name });
+      } else {
+        let userGet = this.props.room.users.filter(
+          user => user._id !== this.props.user._id
+        );
+        this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
+      }
+    }
+  }
+
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);
     this.props.resetMessages();
