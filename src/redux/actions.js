@@ -95,3 +95,11 @@ export const addMessage = contentMessage => {
       });
   };
 };
+
+export const newMessage = message => {
+  return (dispatch, getState) => {
+    if (String(getState().currentRoom._id) === String(message.room)) {
+      dispatch({ type: ADD_MESSAGE, payload: message });
+    }
+  };
+};
