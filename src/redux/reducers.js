@@ -8,7 +8,8 @@ import {
   INVALID_LOGIN,
   REQUEST_LOGIN,
   UPDATE_STATUS_USER_IN_ROOM,
-  UPDATE_READ_STATUS
+  UPDATE_READ_STATUS,
+  GET_ALL_USERS
 } from "./actions";
 import _ from "lodash";
 
@@ -93,6 +94,15 @@ export const messages = (state = [], action) => {
       return action.payload;
     case ADD_MESSAGE:
       return [action.payload, ...state];
+    default:
+      return state;
+  }
+};
+
+export const users = (state = [], action) => {
+  switch (action.type) {
+    case GET_ALL_USERS:
+      return action.payload;
     default:
       return state;
   }

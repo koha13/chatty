@@ -13,7 +13,7 @@ export default () => {
     <div className="usb-header">
       <AppBar
         position="static"
-        style={{ background: "transparent", boxShadow: "none" }}
+        style={{ background: "transparent", boxShadow: "none", zIndex: "10" }}
         className="mb-1"
       >
         <Tabs value={value} onChange={handleChange}>

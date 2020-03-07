@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addMessage } from "../../redux/actions";
+import TextareaAutosize from "react-textarea-autosize";
 
 class ChatTyping extends React.Component {
   state = {
@@ -16,6 +17,13 @@ class ChatTyping extends React.Component {
     this.setState({ chatContent: "" });
   };
 
+  handleKeyDown = e => {
+    if (e.keyCode === 13 && e.shiftKey === false) {
+      e.preventDefault();
+      this.handleSubmit();
+    }
+  };
+
   render() {
     return (
       <form>
@@ -25,13 +33,15 @@ class ChatTyping extends React.Component {
               <i className="fas fa-images"></i>
             </span>
           </div>
-          <textarea
+          <TextareaAutosize
             type="text"
             className="form-control"
-            rows="1"
+            minRows={1}
+            maxRows={4}
             value={this.state.chatContent}
             onChange={this.handleTypingChange}
-          ></textarea>
+            onKeyDown={this.handleKeyDown}
+          />
           <div className="input-group-append">
             <span className="input-group-text" onClick={this.handleSubmit}>
               <i className="fa fa-paper-plane"></i>

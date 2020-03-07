@@ -1,6 +1,7 @@
 import auth from "../axios/auth";
 import roomApi from "../axios/room";
 import messageApi from "../axios/message";
+import userApi from "../axios/user";
 
 export const LOG_IN = "LOG_IN";
 export const ADD_ROOM = "ADD_ROOM";
@@ -12,6 +13,7 @@ export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const INVALID_LOGIN = "INVALID_LOGIN";
 export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
 export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
+export const GET_ALL_USERS = "GET_ALL_USERS";
 
 export const login = (email, password) => {
   return dispatch => {
@@ -31,6 +33,21 @@ export const login = (email, password) => {
         if (err.response) {
           dispatch({ type: INVALID_LOGIN });
         }
+      });
+  };
+};
+
+// Fetch all users from api
+export const getUsers = () => {
+  return (dispatch, getState) => {
+    userApi
+      .get("/", {
+        headers: {
+          Authorization: "Bearer " + getState().user.token
+        }
+      })
+      .then(res => {
+        dispatch({ type: GET_ALL_USERS, payload: res.data });
       });
   };
 };
