@@ -30,5 +30,9 @@ const setupSocketIo = () => {
       store.dispatch(updateReadStatus(data.room, false));
     }
   });
+
+  socket.on("newRoom", data => {
+    console.log(data);
+  });
 };
 export default setupSocketIo;

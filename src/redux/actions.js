@@ -14,6 +14,7 @@ export const INVALID_LOGIN = "INVALID_LOGIN";
 export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
 export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
 export const GET_ALL_USERS = "GET_ALL_USERS";
+export const ADD_NEW_ROOM = "ADD_NEW_ROOM";
 
 export const login = (email, password) => {
   return dispatch => {
@@ -66,6 +67,30 @@ export const addRooms = () => {
       //
     }
   };
+};
+
+// Create room from Api
+export const createRoom = room => {
+  return (dispatch, getState) => {
+    roomApi
+      .post(
+        "/create",
+        { users: room.users, name: room.name },
+        {
+          headers: {
+            Authorization: "Bearer " + getState().user.token
+          }
+        }
+      )
+      .then(res => {
+        dispatch(addNewRoom(res.data));
+      });
+  };
+};
+
+// Add new room to store.rooms
+export const addNewRoom = room => {
+  return { type: ADD_NEW_ROOM, payload: room };
 };
 
 // Update read status room in store.rooms

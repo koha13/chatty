@@ -9,7 +9,8 @@ import {
   REQUEST_LOGIN,
   UPDATE_STATUS_USER_IN_ROOM,
   UPDATE_READ_STATUS,
-  GET_ALL_USERS
+  GET_ALL_USERS,
+  ADD_NEW_ROOM
 } from "./actions";
 import _ from "lodash";
 
@@ -60,6 +61,11 @@ export const rooms = (state = [], action) => {
           temp[i].read = action.payload.status;
         }
       }
+      return temp;
+    }
+    case ADD_NEW_ROOM: {
+      let temp = _.cloneDeep(state);
+      temp.unshift(action.payload);
       return temp;
     }
     default:

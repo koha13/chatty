@@ -4,16 +4,23 @@ import Button from "@material-ui/core/Button";
 import SearchChipList from "./SearchChipList";
 import AddedChipList from "./AddedChipList";
 import { connect } from "react-redux";
+import { createRoom } from "../../redux/actions";
 
 class AddRoom extends React.Component {
   state = {
     roomName: "",
     search: "",
-    usersAdded: []
+    usersAdded: [],
+    roomNameError: false,
+    roomNameErrorMsg: ""
   };
 
   handleNameChange = e => {
-    this.setState({ roomName: e.target.value });
+    this.setState({ roomName: e.target.value.trim() });
+    this.setState({
+      roomNameError: false,
+      roomNameErrorMsg: ""
+    });
   };
   handleSearchChange = e => {
     this.setState({ search: e.target.value });
@@ -21,6 +28,12 @@ class AddRoom extends React.Component {
 
   handleAddChip = data => {
     this.setState(state => ({ usersAdded: [...state.usersAdded, data] }));
+    if (this.state.usersAdded.length > 0) {
+      this.setState({
+        roomNameError: false,
+        roomNameErrorMsg: ""
+      });
+    }
   };
 
   handleDeleteChip = data => {
@@ -28,6 +41,21 @@ class AddRoom extends React.Component {
       userAdded => String(userAdded._id) !== String(data)
     );
     this.setState({ usersAdded: [...r] });
+  };
+
+  handleSubmit = () => {
+    if (this.state.usersAdded.length === 0) {
+      this.setState({
+        roomNameErrorMsg: "No user is added",
+        roomNameError: true
+      });
+    } else if (this.state.roomName === "") {
+      this.setState({ roomNameErrorMsg: "Require!", roomNameError: true });
+    } else {
+      let users = this.state.usersAdded.map(user => user._id);
+      this.props.createRoom({ users, name: this.state.roomName });
+      this.back();
+    }
   };
 
   render() {
@@ -64,6 +92,8 @@ class AddRoom extends React.Component {
           <h1 style={{ textAlign: "center" }}>Create room: </h1>
           <form style={{ margin: "20px 0" }}>
             <TextField
+              error={this.state.roomNameError}
+              helperText={this.state.roomNameErrorMsg}
               value={this.state.roomName}
               onChange={this.handleNameChange}
               id="outlined-basic"
@@ -101,7 +131,12 @@ class AddRoom extends React.Component {
               bottom: "20px"
             }}
           >
-            <Button variant="contained" color="primary" disabled={false}>
+            <Button
+              variant="contained"
+              color="primary"
+              disabled={false}
+              onClick={this.handleSubmit}
+            >
               Create
             </Button>
             <Button
@@ -120,4 +155,4 @@ class AddRoom extends React.Component {
 const mapStateToProps = state => ({
   users: state.users
 });
-export default connect(mapStateToProps)(AddRoom);
+export default connect(mapStateToProps, { createRoom })(AddRoom);
