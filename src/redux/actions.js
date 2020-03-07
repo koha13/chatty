@@ -11,6 +11,7 @@ export const ADD_MESSAGE = "ADD_MESSAGE";
 export const REQUEST_LOGIN = "REQUEST_LOGIN";
 export const INVALID_LOGIN = "INVALID_LOGIN";
 export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
+export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
 
 export const login = (email, password) => {
   return dispatch => {
@@ -34,20 +35,34 @@ export const login = (email, password) => {
   };
 };
 
+// Fetch rooms from api and add to store.rooms
 export const addRooms = () => {
-  return (dispatch, getState) => {
-    roomApi
-      .get("/", {
+  return async (dispatch, getState) => {
+    try {
+      let res = await roomApi.get("/", {
         headers: {
           Authorization: "Bearer " + getState().user.token
         }
-      })
-      .then(res => {
-        dispatch({ type: ADD_ROOM, payload: res.data });
       });
+      dispatch({ type: ADD_ROOM, payload: res.data });
+    } catch (error) {
+      //
+    }
   };
 };
 
+// Update read status room in store.rooms
+export const updateReadStatus = (room_id, status) => {
+  return {
+    type: UPDATE_READ_STATUS,
+    payload: {
+      room_id,
+      status
+    }
+  };
+};
+
+// Update online status of user in room
 export const updateUserStatusInRoom = (user, status) => {
   return {
     type: UPDATE_STATUS_USER_IN_ROOM,
@@ -58,6 +73,7 @@ export const updateUserStatusInRoom = (user, status) => {
   };
 };
 
+// Change current room
 export const changeCurrentRoom = room => {
   return {
     type: CHANGE_CURRENT_ROOM,
@@ -67,12 +83,14 @@ export const changeCurrentRoom = room => {
   };
 };
 
+// Delete all messages in store.messages
 export const resetMessages = () => {
   return {
     type: RESET_MESSAGE
   };
 };
 
+// Fetch messages in current room from api and add to store.messages
 export const getMessages = () => {
   return (dispatch, getState) => {
     messageApi
@@ -87,6 +105,7 @@ export const getMessages = () => {
   };
 };
 
+// Post new messages to api and add to store.messages
 export const addMessage = contentMessage => {
   return (dispatch, getState) => {
     messageApi
@@ -107,6 +126,7 @@ export const addMessage = contentMessage => {
   };
 };
 
+// Receive new messages from socketio and add to store.messages
 export const newMessage = message => {
   return (dispatch, getState) => {
     if (String(getState().currentRoom._id) === String(message.room)) {

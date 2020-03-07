@@ -5,7 +5,8 @@ import { connect } from "react-redux";
 import {
   changeCurrentRoom,
   resetMessages,
-  getMessages
+  getMessages,
+  updateReadStatus
 } from "../../redux/actions";
 class SidebarUserItem extends React.Component {
   state = {
@@ -39,6 +40,7 @@ class SidebarUserItem extends React.Component {
 
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);
+    this.props.updateReadStatus(this.props.room._id, true);
     this.props.resetMessages();
     this.props.getMessages();
   };
@@ -71,6 +73,11 @@ class SidebarUserItem extends React.Component {
           <div className="media-body ml-4 d-inline-block text-truncate">
             <div className="d-flex align-items-center justify-content-between mb-1">
               <h6 className="mb-0">{this.state.nameRoom}</h6>
+              {!this.props.room.read && (
+                <small className="small">
+                  <i className="fas fa-circle" style={{ color: "black" }}></i>
+                </small>
+              )}
             </div>
             <small className="small font-weight-bold">
               {this.props.room.updatedAt}
@@ -81,6 +88,9 @@ class SidebarUserItem extends React.Component {
     );
   }
 }
-export default connect(null, { changeCurrentRoom, resetMessages, getMessages })(
-  SidebarUserItem
-);
+export default connect(null, {
+  changeCurrentRoom,
+  resetMessages,
+  getMessages,
+  updateReadStatus
+})(SidebarUserItem);

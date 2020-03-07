@@ -43,7 +43,17 @@ export default class ChatHeader extends React.Component {
         </div>
         <div className="flex-grow-1 d-flex flex-column justify-content-center">
           <h6 className="p-0 m-0">{this.state.nameRoom}</h6>
-          <p className="p-0 m-0 text-small text-muted">{this.state.status}</p>
+
+          <span className="p-0 m-0 text-small text-muted">
+            <i
+              className="fas fa-circle"
+              style={{
+                color: this.state.status === "online" ? "green" : "red",
+                paddingRight: "5px"
+              }}
+            ></i>
+            {this.state.status}
+          </span>
         </div>
         <i className="fas fa-ellipsis-v m-2"></i>
       </div>

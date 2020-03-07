@@ -10,10 +10,10 @@ export default ({ message }) => {
           alt="User avatar"
         />
       </div>
-      <div className="msg_cotainer">
+      <pre className="msg_cotainer">
         {message.content}
         {/* <span className="msg_time">8:40 AM, Today</span> */}
-      </div>
+      </pre>
     </div>
   );
 };

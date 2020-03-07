@@ -1,6 +1,10 @@
 import io from "socket.io-client";
 import store from "../redux/store";
-import { newMessage, updateUserStatusInRoom } from "../redux/actions";
+import {
+  newMessage,
+  updateUserStatusInRoom,
+  updateReadStatus
+} from "../redux/actions";
 
 const setupSocketIo = () => {
   const socket = io("http://localhost:3000", {
@@ -17,6 +21,14 @@ const setupSocketIo = () => {
 
   socket.on("newMessage", data => {
     store.dispatch(newMessage(data));
+    if (String(data.room) === String(store.getState().currentRoom._id)) {
+      socket.emit("updateReadStatus", {
+        user: store.getState().user._id,
+        room: store.getState().currentRoom._id
+      });
+    } else {
+      store.dispatch(updateReadStatus(data.room, false));
+    }
   });
 };
 export default setupSocketIo;
