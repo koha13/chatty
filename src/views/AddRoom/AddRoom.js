@@ -1,22 +1,15 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
-import Avatar from "@material-ui/core/Avatar";
-import Chip from "@material-ui/core/Chip";
 import Button from "@material-ui/core/Button";
+import SearchChipList from "./SearchChipList";
+import AddedChipList from "./AddedChipList";
+import { connect } from "react-redux";
 
-function DeleteIcon() {
-  return (
-    <i
-      className="fas fa-times-circle fa-sm"
-      style={{ marginRight: "10px" }}
-    ></i>
-  );
-}
-
-export default class AddRoom extends React.Component {
+class AddRoom extends React.Component {
   state = {
     roomName: "",
-    search: ""
+    search: "",
+    usersAdded: []
   };
 
   handleNameChange = e => {
@@ -24,6 +17,17 @@ export default class AddRoom extends React.Component {
   };
   handleSearchChange = e => {
     this.setState({ search: e.target.value });
+  };
+
+  handleAddChip = data => {
+    this.setState(state => ({ usersAdded: [...state.usersAdded, data] }));
+  };
+
+  handleDeleteChip = data => {
+    let r = this.state.usersAdded.filter(
+      userAdded => String(userAdded._id) !== String(data)
+    );
+    this.setState({ usersAdded: [...r] });
   };
 
   render() {
@@ -50,7 +54,8 @@ export default class AddRoom extends React.Component {
           style={{
             position: "absolute",
             background: "beige",
-            height: "500px",
+            minHeight: "500px",
+            maxHeight: "700px",
             width: "500px",
             padding: 15,
             border: "2px solid #444"
@@ -68,16 +73,9 @@ export default class AddRoom extends React.Component {
             />
           </form>
           <div style={{ margin: "10px 0" }}>
-            <Chip
-              style={{ margin: "5px" }}
-              avatar={
-                <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-              }
-              label="Deletable"
-              color="primary"
-              onDelete={() => {}}
-              deleteIcon={<DeleteIcon />}
-              clickable
+            <AddedChipList
+              usersAdded={this.state.usersAdded}
+              handleDeleteChip={this.handleDeleteChip}
             />
           </div>
           <div>
@@ -89,29 +87,11 @@ export default class AddRoom extends React.Component {
               variant="outlined"
               size="small"
             />
-            <Chip
-              style={{ margin: "5px" }}
-              avatar={
-                <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-              }
-              label="Deletable"
-              clickable
-            />
-            <Chip
-              style={{ margin: "5px" }}
-              avatar={
-                <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-              }
-              label="Deletable"
-              clickable
-            />
-            <Chip
-              style={{ margin: "5px" }}
-              avatar={
-                <Avatar alt="Natacha" src="/static/images/avatar/1.jpg" />
-              }
-              label="Deletable"
-              clickable
+            <SearchChipList
+              usersAdded={this.state.usersAdded}
+              users={this.props.users}
+              search={this.state.search}
+              handleAddChip={this.handleAddChip}
             />
           </div>
           <div
@@ -137,3 +117,7 @@ export default class AddRoom extends React.Component {
     );
   }
 }
+const mapStateToProps = state => ({
+  users: state.users
+});
+export default connect(mapStateToProps)(AddRoom);

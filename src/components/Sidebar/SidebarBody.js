@@ -1,7 +1,7 @@
 import React from "react";
 import SidebarUserItem from "./SidebarUserItem";
 import Button from "@material-ui/core/Button";
-import AddRoom from "./AddRoom";
+import AddRoom from "../../views/AddRoom/AddRoom";
 import { connect } from "react-redux";
 
 class SidebarBody extends React.Component {
