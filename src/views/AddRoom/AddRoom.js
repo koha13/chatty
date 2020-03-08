@@ -4,7 +4,7 @@ import Button from "@material-ui/core/Button";
 import SearchChipList from "./SearchChipList";
 import AddedChipList from "./AddedChipList";
 import { connect } from "react-redux";
-import { createRoom } from "../../redux/actions";
+import { createRoom } from "../../redux/actions/rooms";
 
 class AddRoom extends React.Component {
   state = {

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import validator from "validator";
-import { login } from "../redux/actions";
+import { login } from "../redux/actions/user";
 import { withRouter } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";

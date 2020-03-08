@@ -1,6 +1,7 @@
 import React from "react";
 import { Redirect, Route } from "react-router-dom";
-import { addRooms, getUsers } from "../redux/actions";
+import { addRooms } from "../redux/actions/rooms";
+import { getUsers } from "../redux/actions/users";
 import { connect } from "react-redux";
 import socketio from "../socketio-client/index";
 

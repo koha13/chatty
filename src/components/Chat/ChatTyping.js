@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addMessage } from "../../redux/actions";
+import { sendMessage } from "../../redux/actions/messages";
 import TextareaAutosize from "react-textarea-autosize";
 
 class ChatTyping extends React.Component {
@@ -13,7 +13,7 @@ class ChatTyping extends React.Component {
   };
 
   handleSubmit = () => {
-    this.props.addMessage(this.state.chatContent);
+    this.props.sendMessage(this.state.chatContent);
     this.setState({ chatContent: "" });
   };
 
@@ -53,4 +53,4 @@ class ChatTyping extends React.Component {
   }
 }
 
-export default connect(null, { addMessage })(ChatTyping);
+export default connect(null, { sendMessage })(ChatTyping);
