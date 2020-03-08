@@ -9,7 +9,8 @@ class SidebarUserItem extends React.Component {
   state = {
     nameRoom: "",
     members: "",
-    status: "online"
+    status: "online",
+    avatarRoom: ""
   };
 
   componentDidMount() {
@@ -25,8 +26,16 @@ class SidebarUserItem extends React.Component {
       name += ", " + userGet[i].name;
     }
     this.setState({ members: name });
-    if (this.props.room.type === "group") this.setState({ status: "online" });
-    else this.setState({ status: userGet[0].status });
+    if (this.props.room.type === "group")
+      this.setState({
+        status: "online",
+        avatarRoom: "https://image.flaticon.com/icons/png/512/32/32441.png"
+      });
+    else
+      this.setState({
+        status: userGet[0].status,
+        avatarRoom: userGet[0].avatar
+      });
   }
 
   // componentDidUpdate(previousProps) {
@@ -71,7 +80,7 @@ class SidebarUserItem extends React.Component {
           >
             <img
               alt="User avatar"
-              src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+              src={this.state.avatarRoom}
               width="50"
               className="rounded-circle"
             />

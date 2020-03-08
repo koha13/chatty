@@ -3,7 +3,8 @@ import React from "react";
 export default class ChatHeader extends React.Component {
   state = {
     nameRoom: "   ",
-    status: "offline"
+    status: "offline",
+    avatarRoom: ""
   };
 
   componentDidMount() {
@@ -20,9 +21,15 @@ export default class ChatHeader extends React.Component {
       this.setState({ nameRoom: name });
     }
     if (this.props.currentRoom.type === "group") {
-      this.setState({ status: "online" });
-      console.log("here");
-    } else this.setState({ status: userGet[0].status });
+      this.setState({
+        status: "online",
+        avatarRoom: "https://image.flaticon.com/icons/png/512/32/32441.png"
+      });
+    } else
+      this.setState({
+        status: userGet[0].status,
+        avatarRoom: userGet[0].avatar
+      });
   }
 
   componentDidUpdate(prevProps) {
@@ -51,7 +58,7 @@ export default class ChatHeader extends React.Component {
       <div className="cb-header d-flex flex-row justify-content-start align-items-center px-2">
         <div className="img-contain m-2" style={{ width: "50px" }}>
           <img
-            src="https://res.cloudinary.com/mhmd/image/upload/v1564960395/avatar_usae7z.svg"
+            src={this.state.avatarRoom}
             alt="user"
             width="50"
             className="rounded-circle"
