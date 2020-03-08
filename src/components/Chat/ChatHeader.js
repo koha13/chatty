@@ -7,25 +7,39 @@ export default class ChatHeader extends React.Component {
   };
 
   componentDidMount() {
-    if (this.props.currentRoom.type === "group") {
+    if (this.props.currentRoom.name) {
       this.setState({ nameRoom: this.props.currentRoom.name });
     } else {
       let userGet = this.props.currentRoom.users.filter(
         user => user._id !== this.props.user._id
       );
-      this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
+      let name = userGet[0].name;
+      for (let i = 1; i < userGet.length; i++) {
+        name += ", " + userGet[i].name;
+      }
+      this.setState({ nameRoom: name });
+      if (this.props.currentRoom.type === "group")
+        this.setState({ status: "online" });
+      else this.setState({ status: userGet[0].status });
     }
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.currentRoom !== this.props.currentRoom) {
-      if (this.props.currentRoom.type === "group") {
+      if (this.props.currentRoom.name) {
         this.setState({ nameRoom: this.props.currentRoom.name });
       } else {
         let userGet = this.props.currentRoom.users.filter(
           user => user._id !== this.props.user._id
         );
-        this.setState({ nameRoom: userGet[0].name, status: userGet[0].status });
+        let name = userGet[0].name;
+        for (let i = 1; i < userGet.length; i++) {
+          name += ", " + userGet[i].name;
+        }
+        this.setState({ nameRoom: name });
+        if (this.props.currentRoom.type === "group")
+          this.setState({ status: "online" });
+        else this.setState({ status: userGet[0].status });
       }
     }
   }
