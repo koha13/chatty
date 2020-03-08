@@ -2,6 +2,7 @@ import React from "react";
 import ChatItemSend from "./ChatItemReceive";
 import ChatItemReceive from "./ChatItemSend";
 import { connect } from "react-redux";
+import Loading from "../Loading";
 
 class ChatBody extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class ChatBody extends React.Component {
     let result = Object.keys(this.props.messages).reverse();
     return (
       <div className="cb-content px-4 pt-2 flex-grow-1" ref={this.divRef}>
+        {this.props.status === "loading" && <Loading />}
         {result.map(key => {
           if (this.props.messages[key].user !== this.props.user._id) {
             return (
@@ -48,7 +50,8 @@ class ChatBody extends React.Component {
 }
 const mapStateToProps = state => {
   return {
-    messages: state.messages,
+    status: state.messages.status,
+    messages: state.messages.data,
     user: state.user
   };
 };

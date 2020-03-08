@@ -1,11 +1,18 @@
-import { GET_MESSAGES, ADD_MESSAGE } from "../actions/messages";
+import {
+  GET_MESSAGES,
+  ADD_MESSAGE,
+  SENDING_MESSAGE
+} from "../actions/messages";
 
-const messages = (state = [], action) => {
+const messages = (state = { data: [], status: "done" }, action) => {
   switch (action.type) {
+    case SENDING_MESSAGE: {
+      return { data: [...state.data], status: "loading" };
+    }
     case GET_MESSAGES:
-      return action.payload;
+      return { data: action.payload, status: "done" };
     case ADD_MESSAGE:
-      return [action.payload, ...state];
+      return { data: [action.payload, ...state.data], status: "done" };
     default:
       return state;
   }
