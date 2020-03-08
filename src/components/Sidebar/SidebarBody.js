@@ -38,7 +38,7 @@ class SidebarBody extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  rooms: state.rooms,
+  rooms: state.rooms.data,
   user: state.user
 });
 

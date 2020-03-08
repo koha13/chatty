@@ -6,18 +6,24 @@ import {
 } from "../actions/rooms";
 import _ from "lodash";
 
-const rooms = (state = [], action) => {
+const rooms = (state = { status: "done", data: [] }, action) => {
   switch (action.type) {
-    case ADD_ROOM:
-      return [...action.payload];
+    case ADD_ROOM: {
+      let temp = _.cloneDeep(state);
+      temp.data = action.payload;
+      temp.status = "done";
+      return temp;
+    }
+
     case UPDATE_STATUS_USER_IN_ROOM: {
       let temp = _.cloneDeep(state);
-      for (let i = 0; i < temp.length; i++) {
-        for (let j = 0; j < temp[i].users.length; j++) {
+      for (let i = 0; i < temp.data.length; i++) {
+        for (let j = 0; j < temp.data[i].users.length; j++) {
           if (
-            String(temp[i].users[j]._id) === String(action.payload.user._id)
+            String(temp.data[i].users[j]._id) ===
+            String(action.payload.user._id)
           ) {
-            temp[i].users[j].status = action.payload.status;
+            temp.data[i].users[j].status = action.payload.status;
           }
         }
       }
@@ -26,15 +32,15 @@ const rooms = (state = [], action) => {
     case UPDATE_READ_STATUS: {
       let temp = _.cloneDeep(state);
       for (let i = 0; i < temp.length; i++) {
-        if (String(temp[i]._id) === String(action.payload.room_id)) {
-          temp[i].read = action.payload.status;
+        if (String(temp.data[i]._id) === String(action.payload.room_id)) {
+          temp.data[i].read = action.payload.status;
         }
       }
       return temp;
     }
     case ADD_NEW_ROOM: {
       let temp = _.cloneDeep(state);
-      temp.unshift(action.payload);
+      temp.data.unshift(action.payload);
       return temp;
     }
     default:
