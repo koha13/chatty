@@ -6,13 +6,12 @@ const SearchChip = props => {
   const handleAddChip = () => {
     props.handleAddChip(props.chip);
   };
+
   return (
     <Chip
       onClick={handleAddChip}
       style={{ margin: "5px" }}
-      avatar={
-        <Avatar alt={props.chip.name} src="/static/images/avatar/1.jpg" />
-      }
+      avatar={<Avatar alt={props.chip.name} src={props.chip.avatar} />}
       label={props.chip.name}
       clickable
     />

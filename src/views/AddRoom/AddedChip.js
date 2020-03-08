@@ -20,9 +20,7 @@ const AddedChip = props => {
       onClick={handleDeleteChip}
       key={props.chip._id}
       style={{ margin: "5px" }}
-      avatar={
-        <Avatar alt={props.chip.name} src="/static/images/avatar/1.jpg" />
-      }
+      avatar={<Avatar alt={props.chip.name} src={props.chip.avatar} />}
       label={props.chip.name}
       color="primary"
       onDelete={() => {}}

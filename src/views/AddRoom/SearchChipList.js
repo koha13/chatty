@@ -13,7 +13,7 @@ const SearchChipList = props => {
     ) {
       let check = true;
       for (let j = 0; j < props.usersAdded.length; j++) {
-        if (props.users[i].name === props.usersAdded[j].name) check = false;
+        if (props.users[i]._id === props.usersAdded[j]._id) check = false;
       }
       if (check) {
         count++;
