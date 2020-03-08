@@ -1,6 +1,9 @@
 import React from "react";
 
-const Loading = () => {
+const Loading = props => {
+  let className = "fas fa-circle-notch fa-spin";
+  if (props.size) className += " " + props.size;
+  else className += " fa-2x";
   return (
     <div
       style={{
@@ -11,7 +14,7 @@ const Loading = () => {
         alignItems: "center"
       }}
     >
-      <i class="fas fa-circle-notch fa-spin fa-2x"></i>
+      <i className={className}></i>
     </div>
   );
 };

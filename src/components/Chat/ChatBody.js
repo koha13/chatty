@@ -27,7 +27,7 @@ class ChatBody extends React.Component {
     let result = Object.keys(this.props.messages).reverse();
     return (
       <div className="cb-content px-4 pt-2 flex-grow-1" ref={this.divRef}>
-        {this.props.status === "loading" && <Loading />}
+        {this.props.status === "fetching" && <Loading />}
         {result.map(key => {
           if (this.props.messages[key].user !== this.props.user._id) {
             return (

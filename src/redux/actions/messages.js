@@ -3,11 +3,12 @@ import messageApi from "../../axios/message";
 export const GET_MESSAGES = "GET_MESSAGES";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const SENDING_MESSAGE = "SENDING_MESSAGE";
+export const FETCHING_MESSAGE = "FETCHING_MESSAGE";
 
 // Fetch messages in current room from api and add to store.messages
 export const getMessages = () => {
   return (dispatch, getState) => {
-    dispatch(sendingMessage());
+    dispatch(fetchingMessage());
     messageApi
       .get("/" + getState().currentRoom._id, {
         headers: {
@@ -27,9 +28,17 @@ const sendingMessage = () => {
   };
 };
 
+// Fetching message action
+const fetchingMessage = () => {
+  return {
+    type: FETCHING_MESSAGE
+  };
+};
+
 // Post new messages to api and add to store.messages
 export const sendMessage = contentMessage => {
   return (dispatch, getState) => {
+    dispatch(sendingMessage());
     messageApi
       .post(
         "/" + getState().currentRoom._id,
