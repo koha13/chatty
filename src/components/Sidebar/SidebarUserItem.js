@@ -7,46 +7,46 @@ import { changeCurrentRoom } from "../../redux/actions/currentRoom";
 import { updateReadStatus } from "../../redux/actions/rooms";
 class SidebarUserItem extends React.Component {
   state = {
-    nameRoom: "   ",
+    nameRoom: "",
+    members: "",
     status: "online"
   };
 
   componentDidMount() {
     if (this.props.room.name) {
       this.setState({ nameRoom: this.props.room.name });
-    } else {
-      let userGet = this.props.room.users.filter(
-        user => user._id !== this.props.user._id
-      );
-      let name = userGet[0].name;
-      for (let i = 1; i < userGet.length; i++) {
-        name += ", " + userGet[i].name;
-      }
-      this.setState({ nameRoom: name });
-      if (this.props.room.type === "group") this.setState({ status: "online" });
-      else this.setState({ status: userGet[0].status });
     }
+
+    let userGet = this.props.room.users.filter(
+      user => user._id !== this.props.user._id
+    );
+    let name = userGet[0].name;
+    for (let i = 1; i < userGet.length; i++) {
+      name += ", " + userGet[i].name;
+    }
+    this.setState({ members: name });
+    if (this.props.room.type === "group") this.setState({ status: "online" });
+    else this.setState({ status: userGet[0].status });
   }
 
-  componentDidUpdate(previousProps) {
-    if (previousProps.room !== this.props.room) {
-      if (this.props.room.name) {
-        this.setState({ nameRoom: this.props.room.name });
-      } else {
-        let userGet = this.props.room.users.filter(
-          user => user._id !== this.props.user._id
-        );
-        let name = userGet[0].name;
-        for (let i = 1; i < userGet.length; i++) {
-          name += ", " + userGet[i].name;
-        }
-        this.setState({ nameRoom: name });
-        if (this.props.room.type === "group")
-          this.setState({ status: "online" });
-        else this.setState({ status: userGet[0].status });
-      }
-    }
-  }
+  // componentDidUpdate(previousProps) {
+  //   if (previousProps.room !== this.props.room) {
+  //     if (this.props.room.name) {
+  //       this.setState({ nameRoom: this.props.room.name });
+  //     }
+
+  //     let userGet = this.props.room.users.filter(
+  //       user => user._id !== this.props.user._id
+  //     );
+  //     let name = userGet[0].name;
+  //     for (let i = 1; i < userGet.length; i++) {
+  //       name += ", " + userGet[i].name;
+  //     }
+  //     this.setState({ members: name });
+  //     if (this.props.room.type === "group") this.setState({ status: "online" });
+  //     else this.setState({ status: userGet[0].status });
+  //   }
+  // }
 
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);
@@ -80,7 +80,9 @@ class SidebarUserItem extends React.Component {
           <div className="media-body ml-4 d-inline-block text-truncate">
             <div className="d-flex align-items-center justify-content-between mb-1">
               <h6 className="mb-0 text-truncate" style={{ width: "90%" }}>
-                {this.state.nameRoom}
+                {this.state.nameRoom === ""
+                  ? this.state.members
+                  : this.state.nameRoom}
               </h6>
               {!this.props.room.read && (
                 <small className="small">
@@ -89,7 +91,7 @@ class SidebarUserItem extends React.Component {
               )}
             </div>
             <small className="small font-weight-bold">
-              {this.props.room.updatedAt}
+              {this.state.members}
             </small>
           </div>
         </div>
