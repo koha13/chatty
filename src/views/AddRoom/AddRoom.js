@@ -7,20 +7,19 @@ import { connect } from "react-redux";
 import { createRoom } from "../../redux/actions/rooms";
 
 class AddRoom extends React.Component {
-  state = {
-    roomName: "",
-    search: "",
-    usersAdded: [],
-    roomNameError: false,
-    roomNameErrorMsg: ""
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      roomName: "",
+      search: "",
+      usersAdded: [],
+      roomNameError: false,
+      roomNameErrorMsg: ""
+    };
+  }
 
   handleNameChange = e => {
     this.setState({ roomName: e.target.value.trim() });
-    this.setState({
-      roomNameError: false,
-      roomNameErrorMsg: ""
-    });
   };
   handleSearchChange = e => {
     this.setState({ search: e.target.value });
@@ -28,12 +27,11 @@ class AddRoom extends React.Component {
 
   handleAddChip = data => {
     this.setState(state => ({ usersAdded: [...state.usersAdded, data] }));
-    if (this.state.usersAdded.length > 0) {
-      this.setState({
-        roomNameError: false,
-        roomNameErrorMsg: ""
-      });
-    }
+    this.setState({ search: "" });
+    this.setState({
+      roomNameError: false,
+      roomNameErrorMsg: ""
+    });
   };
 
   handleDeleteChip = data => {
@@ -49,14 +47,21 @@ class AddRoom extends React.Component {
         roomNameErrorMsg: "No user is added",
         roomNameError: true
       });
-    } else if (this.state.roomName === "") {
-      this.setState({ roomNameErrorMsg: "Require!", roomNameError: true });
     } else {
       let users = this.state.usersAdded.map(user => user._id);
-      this.props.createRoom({ users, name: this.state.roomName });
-      this.back();
+      let data = { users };
+      if (this.state.roomName !== "")
+        data = { ...data, name: this.state.roomName };
+      console.log(data);
+      this.props.createRoom(data);
     }
   };
+
+  componentDidUpdate(prevProps) {
+    if (this.props.status === "created" && prevProps.status === "creating") {
+      this.props.back();
+    }
+  }
 
   render() {
     return (
@@ -92,8 +97,6 @@ class AddRoom extends React.Component {
           <h1 style={{ textAlign: "center" }}>Create room: </h1>
           <form style={{ margin: "20px 0" }}>
             <TextField
-              error={this.state.roomNameError}
-              helperText={this.state.roomNameErrorMsg}
               value={this.state.roomName}
               onChange={this.handleNameChange}
               id="outlined-basic"
@@ -103,6 +106,9 @@ class AddRoom extends React.Component {
             />
           </form>
           <div style={{ margin: "10px 0" }}>
+            {this.state.roomNameError && (
+              <p style={{ color: "red" }}>{this.state.roomNameErrorMsg}</p>
+            )}
             <AddedChipList
               usersAdded={this.state.usersAdded}
               handleDeleteChip={this.handleDeleteChip}
@@ -134,7 +140,7 @@ class AddRoom extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              disabled={false}
+              disabled={this.props.status === "creating"}
               onClick={this.handleSubmit}
             >
               Create
@@ -153,6 +159,7 @@ class AddRoom extends React.Component {
   }
 }
 const mapStateToProps = state => ({
-  users: state.users
+  users: state.users,
+  status: state.rooms.status
 });
 export default connect(mapStateToProps, { createRoom })(AddRoom);

@@ -5,6 +5,7 @@ export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
 export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
 export const ADD_NEW_ROOM = "ADD_NEW_ROOM";
 export const FETCHING_ROOM = "FETCHING_ROOM";
+export const CREATING_ROOM = "CREATING_ROOM";
 
 // Fetch rooms from api and add to store.rooms
 export const addRooms = () => {
@@ -30,9 +31,17 @@ const fetchingRoom = () => {
   };
 };
 
+// Creating room action
+const creatingRoom = () => {
+  return {
+    type: CREATING_ROOM
+  };
+};
+
 // Create room from Api
 export const createRoom = room => {
   return (dispatch, getState) => {
+    dispatch(creatingRoom());
     roomApi
       .post(
         "/create",

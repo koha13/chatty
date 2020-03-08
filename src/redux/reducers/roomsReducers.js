@@ -3,7 +3,8 @@ import {
   UPDATE_STATUS_USER_IN_ROOM,
   UPDATE_READ_STATUS,
   ADD_NEW_ROOM,
-  FETCHING_ROOM
+  FETCHING_ROOM,
+  CREATING_ROOM
 } from "../actions/rooms";
 import _ from "lodash";
 
@@ -17,6 +18,12 @@ const rooms = (state = { status: "done", data: [] }, action) => {
       let temp = _.cloneDeep(state);
       temp.data = action.payload;
       temp.status = "done";
+      return temp;
+    }
+
+    case CREATING_ROOM: {
+      let temp = _.cloneDeep(state);
+      temp.status = "creating";
       return temp;
     }
 
@@ -36,7 +43,7 @@ const rooms = (state = { status: "done", data: [] }, action) => {
     }
     case UPDATE_READ_STATUS: {
       let temp = _.cloneDeep(state);
-      for (let i = 0; i < temp.length; i++) {
+      for (let i = 0; i < temp.data.length; i++) {
         if (String(temp.data[i]._id) === String(action.payload.room_id)) {
           temp.data[i].read = action.payload.status;
         }
@@ -45,7 +52,9 @@ const rooms = (state = { status: "done", data: [] }, action) => {
     }
     case ADD_NEW_ROOM: {
       let temp = _.cloneDeep(state);
+      action.payload.read = false;
       temp.data.unshift(action.payload);
+      temp.status = "created";
       return temp;
     }
     default:

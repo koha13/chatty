@@ -11,7 +11,9 @@ class SidebarBody extends React.Component {
   };
 
   handleAddRoom = e => {
-    e.stopPropagation();
+    if (e) {
+      e.stopPropagation();
+    }
     this.setState(state => ({
       addRoom: !state.addRoom
     }));
@@ -20,10 +22,18 @@ class SidebarBody extends React.Component {
   render() {
     return (
       <div className="usb-content">
-        {this.props.status === "fetching" && <Loading />}
-        <Button id="addBtn" variant="contained" onClick={this.handleAddRoom}>
-          Add
-        </Button>
+        {this.props.status === "fetching" ? (
+          <Loading />
+        ) : (
+          <Button
+            id="addBtn"
+            variant="contained"
+            onClick={this.handleAddRoom}
+            style={{ zIndex: "1000", height: "40px" }}
+          >
+            Add room
+          </Button>
+        )}
         {this.state.addRoom && <AddRoom back={this.handleAddRoom} />}
         <div className="list-group rounded-0">
           {this.props.rooms.map(room => (

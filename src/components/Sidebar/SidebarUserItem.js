@@ -50,8 +50,6 @@ class SidebarUserItem extends React.Component {
 
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);
-    this.props.updateReadStatus(this.props.room._id, true);
-    this.props.getMessages();
   };
 
   render() {
