@@ -122,6 +122,7 @@ class AddRoom extends React.Component {
               id="filled-size-small"
               variant="outlined"
               size="small"
+              type="search"
             />
             <SearchChipList
               usersAdded={this.state.usersAdded}

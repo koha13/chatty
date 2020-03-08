@@ -5,6 +5,7 @@ import Chat from "../components/Chat/";
 import { Switch, Route } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
 import PrivateRoute from "./PrivateRoute";
+import SignupScreen from "./Signup";
 
 export default class App extends React.Component {
   render() {
@@ -12,6 +13,9 @@ export default class App extends React.Component {
       <Switch>
         <Route path="/login" exact>
           <LoginScreen />
+        </Route>
+        <Route path="/signup" exact>
+          <SignupScreen />
         </Route>
         <PrivateRoute path="/">
           <div

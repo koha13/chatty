@@ -1,9 +1,11 @@
-import { LOG_IN, INVALID_LOGIN, REQUEST_LOGIN } from "../actions/user";
+import {
+  LOG_IN,
+  INVALID_LOGIN,
+  REQUEST_LOGIN,
+  SIGNING_UP
+} from "../actions/user";
 
-const user = (
-  state = { isFetching: false, isInvalid: false, data: {} },
-  action
-) => {
+const user = (state = { status: "done", data: {} }, action) => {
   switch (action.type) {
     case LOG_IN:
       return { ...action.payload };
@@ -12,9 +14,22 @@ const user = (
     }
     case REQUEST_LOGIN: {
       return {
-        ...state,
-        isFetching: true,
-        isInvalid: false
+        data: {},
+        status: "loging"
+      };
+    }
+
+    case SIGNING_UP: {
+      return {
+        data: {},
+        status: "signing"
+      };
+    }
+
+    case "LOG_IN_FAIL": {
+      return {
+        data: {},
+        status: "done"
       };
     }
 

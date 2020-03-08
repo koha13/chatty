@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import validator from "validator";
 import { login } from "../redux/actions/user";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import CircularProgress from "@material-ui/core/CircularProgress";
 
@@ -100,7 +100,7 @@ class LoginScreen extends Component {
                 type="submit"
                 size="medium"
               >
-                {this.props.user.isFetching ? (
+                {this.props.status === "loging" ? (
                   <CircularProgress color="secondary" size={24} />
                 ) : (
                   "GOO"
@@ -108,6 +108,9 @@ class LoginScreen extends Component {
               </Button>
             </div>
           </form>
+          <Link to="/signup" style={{ color: "black" }}>
+            Signup
+          </Link>
         </div>
       </div>
     );
@@ -115,7 +118,8 @@ class LoginScreen extends Component {
 }
 
 const mapStateToProps = state => ({
-  user: state.user
+  user: state.user,
+  status: state.user.status
 });
 
 export default withRouter(
