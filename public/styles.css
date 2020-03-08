@@ -109,23 +109,23 @@
   margin-top: auto;
   margin-bottom: auto;
   margin-left: 10px;
-  border: solid 1px black;
-  padding: 10px;
+  border-radius: 20px;
+  padding: 7px 10px 5px 10px;
   position: relative;
   max-width: 50%;
   word-wrap: break-word;
-  background-color: white;
+  background-color: #f3d476;
 }
 .msg_cotainer_send {
   margin-top: auto;
   margin-bottom: auto;
   margin-right: 10px;
-  border: solid 1px black;
-  padding: 10px;
+  border-radius: 20px;
+  padding: 7px 10px 5px 10px;
   position: relative;
   max-width: 50%;
   word-wrap: break-word;
-  background-color: white;
+  background-color: beige;
 }
 .msg_time {
   position: absolute;
