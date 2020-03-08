@@ -1,10 +1,10 @@
 import io from "socket.io-client";
 import store from "../redux/store";
+import { newMessage } from "../redux/actions/messages";
 import {
-  newMessage,
   updateUserStatusInRoom,
   updateReadStatus
-} from "../redux/actions";
+} from "../redux/actions/rooms";
 
 const setupSocketIo = () => {
   const socket = io("http://localhost:3000", {
