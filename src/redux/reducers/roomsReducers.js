@@ -2,12 +2,17 @@ import {
   ADD_ROOM,
   UPDATE_STATUS_USER_IN_ROOM,
   UPDATE_READ_STATUS,
-  ADD_NEW_ROOM
+  ADD_NEW_ROOM,
+  FETCHING_ROOM
 } from "../actions/rooms";
 import _ from "lodash";
 
 const rooms = (state = { status: "done", data: [] }, action) => {
   switch (action.type) {
+    case FETCHING_ROOM: {
+      return { status: "fetching", data: [] };
+    }
+
     case ADD_ROOM: {
       let temp = _.cloneDeep(state);
       temp.data = action.payload;

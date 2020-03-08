@@ -19,6 +19,19 @@ class SidebarBody extends React.Component {
   render() {
     return (
       <div className="usb-content">
+        {this.props.status === "fetching" && (
+          <div
+            style={{
+              width: "100%",
+              height: "100%",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <i class="fas fa-circle-notch fa-spin fa-4x"></i>
+          </div>
+        )}
         <Button id="addBtn" variant="contained" onClick={this.handleAddRoom}>
           Add
         </Button>
@@ -38,6 +51,7 @@ class SidebarBody extends React.Component {
 }
 
 const mapStateToProps = state => ({
+  status: state.rooms.status,
   rooms: state.rooms.data,
   user: state.user
 });

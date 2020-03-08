@@ -4,11 +4,13 @@ export const ADD_ROOM = "ADD_ROOM";
 export const UPDATE_STATUS_USER_IN_ROOM = "UPDATE_STATUS_USER_IN_ROOM";
 export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
 export const ADD_NEW_ROOM = "ADD_NEW_ROOM";
+export const FETCHING_ROOM = "FETCHING_ROOM";
 
 // Fetch rooms from api and add to store.rooms
 export const addRooms = () => {
   return async (dispatch, getState) => {
     try {
+      dispatch(fetchingRoom());
       let res = await roomApi.get("/", {
         headers: {
           Authorization: "Bearer " + getState().user.token
@@ -18,6 +20,13 @@ export const addRooms = () => {
     } catch (error) {
       //
     }
+  };
+};
+
+// Fetching room action
+const fetchingRoom = () => {
+  return {
+    type: FETCHING_ROOM
   };
 };
 
