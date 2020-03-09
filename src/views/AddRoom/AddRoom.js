@@ -5,6 +5,7 @@ import SearchChipList from "./SearchChipList";
 import AddedChipList from "./AddedChipList";
 import { connect } from "react-redux";
 import { createRoom } from "../../redux/actions/rooms";
+import { withRouter } from "react-router-dom";
 
 class AddRoom extends React.Component {
   constructor(props) {
@@ -52,21 +53,20 @@ class AddRoom extends React.Component {
       let data = { users };
       if (this.state.roomName !== "")
         data = { ...data, name: this.state.roomName };
-      console.log(data);
       this.props.createRoom(data);
     }
   };
 
   componentDidUpdate(prevProps) {
     if (this.props.status === "created" && prevProps.status === "creating") {
-      this.props.back();
+      this.props.history.goBack();
     }
   }
 
   render() {
     return (
       <div
-        onClick={this.props.back}
+        onClick={() => this.props.history.goBack()}
         style={{
           position: "fixed",
           top: 0,
@@ -149,7 +149,7 @@ class AddRoom extends React.Component {
             <Button
               variant="contained"
               color="secondary"
-              onClick={this.props.back}
+              onClick={() => this.props.history.goBack()}
             >
               Cancle
             </Button>
@@ -163,4 +163,4 @@ const mapStateToProps = state => ({
   users: state.users,
   status: state.rooms.status
 });
-export default connect(mapStateToProps, { createRoom })(AddRoom);
+export default withRouter(connect(mapStateToProps, { createRoom })(AddRoom));

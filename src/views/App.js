@@ -6,6 +6,7 @@ import { Switch, Route } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
 import PrivateRoute from "./PrivateRoute";
 import SignupScreen from "./Signup";
+import AddRoom from "./AddRoom/AddRoom";
 
 export default class App extends React.Component {
   render() {
@@ -18,6 +19,9 @@ export default class App extends React.Component {
           <SignupScreen />
         </Route>
         <PrivateRoute path="/">
+          <Route exact path="/addroom">
+            <AddRoom />
+          </Route>
           <div
             className="container overflow-hidden"
             style={{ minWidth: "100%", height: "100vh" }}

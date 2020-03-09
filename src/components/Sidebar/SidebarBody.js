@@ -4,19 +4,11 @@ import Button from "@material-ui/core/Button";
 import AddRoom from "../../views/AddRoom/AddRoom";
 import Loading from "../Loading";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
 class SidebarBody extends React.Component {
   state = {
     addRoom: false
-  };
-
-  handleAddRoom = e => {
-    if (e) {
-      e.stopPropagation();
-    }
-    this.setState(state => ({
-      addRoom: !state.addRoom
-    }));
   };
 
   render() {
@@ -25,14 +17,20 @@ class SidebarBody extends React.Component {
         {this.props.status === "fetching" ? (
           <Loading />
         ) : (
-          <Button
-            id="addBtn"
-            variant="contained"
-            onClick={this.handleAddRoom}
-            style={{ zIndex: "1000", height: "40px" }}
+          <Link
+            to={{
+              pathname: "/addroom",
+              state: { modal: true }
+            }}
           >
-            Add room
-          </Button>
+            <Button
+              id="addBtn"
+              variant="contained"
+              style={{ zIndex: "1000", height: "40px" }}
+            >
+              Add room
+            </Button>
+          </Link>
         )}
         {this.state.addRoom && <AddRoom back={this.handleAddRoom} />}
         <div className="list-group rounded-0">
