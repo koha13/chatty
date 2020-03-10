@@ -7,6 +7,7 @@ import LoginScreen from "./LoginScreen";
 import PrivateRoute from "./PrivateRoute";
 import SignupScreen from "./Signup";
 import AddRoom from "./AddRoom/AddRoom";
+import RightSide from "../components/RightSide/";
 
 export default class App extends React.Component {
   render() {
@@ -29,6 +30,7 @@ export default class App extends React.Component {
               <Switch>
                 <Route exact path="/room/:idRoom">
                   <Chat />
+                  <RightSide />
                 </Route>
                 <Route exact path="/addroom">
                   <AddRoom />

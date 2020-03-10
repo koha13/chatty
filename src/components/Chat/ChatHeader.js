@@ -73,7 +73,7 @@ export default class ChatHeader extends React.Component {
             {this.state.status}
           </span>
         </div>
-        <i className="fas fa-ellipsis-v m-2"></i>
+        <i className="fas fa-user-plus fa-lg" style={{ cursor: "pointer" }}></i>
       </div>
     );
   }

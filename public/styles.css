@@ -146,3 +146,47 @@
 #addBtn {
   width: 100%;
 }
+
+/* Right side */
+.right-side {
+  height: 100%;
+  overflow: hidden;
+}
+
+.right-side .members {
+  max-height: 20%;
+  overflow-y: scroll;
+  background-color: #15574f;
+  padding: 10px;
+}
+
+.right-side .search-gif {
+  flex-grow: 1;
+  max-height: 80%;
+  background-color: #d6e1e2;
+  padding: 10px;
+  overflow-y: scroll;
+  box-sizing: border-box;
+}
+
+.right-side .container > div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2em;
+}
+
+.right-side .container > div > img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  box-shadow: 0 2px 16px var(--shadow);
+}
+
+.right-side .container {
+  display: grid;
+  grid-gap: 10px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-auto-rows: 120px;
+  grid-auto-flow: dense;
+}
