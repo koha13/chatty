@@ -19,9 +19,6 @@ export default class App extends React.Component {
           <SignupScreen />
         </Route>
         <PrivateRoute path="/">
-          <Route exact path="/addroom">
-            <AddRoom />
-          </Route>
           <div
             className="container overflow-hidden"
             style={{ minWidth: "100%", height: "100vh" }}
@@ -32,6 +29,9 @@ export default class App extends React.Component {
               <Switch>
                 <Route exact path="/room/:idRoom">
                   <Chat />
+                </Route>
+                <Route exact path="/addroom">
+                  <AddRoom />
                 </Route>
               </Switch>
             </div>

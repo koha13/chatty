@@ -1,4 +1,5 @@
 import React from "react";
+import Avatar from "@material-ui/core/Avatar";
 
 export default class ChatHeader extends React.Component {
   state = {
@@ -48,7 +49,6 @@ export default class ChatHeader extends React.Component {
       }
       if (this.props.currentRoom.type === "group") {
         this.setState({ status: "online" });
-        console.log("here");
       } else this.setState({ status: userGet[0].status });
     }
   }
@@ -57,12 +57,7 @@ export default class ChatHeader extends React.Component {
     return (
       <div className="cb-header d-flex flex-row justify-content-start align-items-center px-2">
         <div className="img-contain m-2" style={{ width: "50px" }}>
-          <img
-            src={this.state.avatarRoom}
-            alt="user"
-            width="50"
-            className="rounded-circle"
-          />
+          <Avatar src={this.state.avatarRoom} />
         </div>
         <div className="flex-grow-1 d-flex flex-column justify-content-center">
           <h6 className="p-0 m-0">{this.state.nameRoom}</h6>

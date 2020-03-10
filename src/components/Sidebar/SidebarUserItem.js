@@ -1,6 +1,7 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import Badge from "@material-ui/core/Badge";
+import Avatar from "@material-ui/core/Avatar";
 import { connect } from "react-redux";
 import { getMessages } from "../../redux/actions/messages";
 import { changeCurrentRoom } from "../../redux/actions/currentRoom";
@@ -78,12 +79,7 @@ class SidebarUserItem extends React.Component {
             color={this.state.status === "online" ? "primary" : "error"}
             badgeContent={this.state.status}
           >
-            <img
-              alt="User avatar"
-              src={this.state.avatarRoom}
-              width="50"
-              className="rounded-circle"
-            />
+            <Avatar alt="User" src={this.state.avatarRoom} />
           </Badge>
 
           <div className="media-body ml-4 d-inline-block text-truncate">
