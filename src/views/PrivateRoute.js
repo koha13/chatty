@@ -18,7 +18,7 @@ class PrivateRoute extends React.Component {
       <Route
         {...rest}
         render={({ location }) =>
-          true ? (
+          this.props.token ? (
             children
           ) : (
             <Redirect
@@ -34,4 +34,8 @@ class PrivateRoute extends React.Component {
   }
 }
 
-export default connect(null, { addRooms, getUsers })(PrivateRoute);
+const mapStateToProps = state => {
+  return { token: state.user.token };
+};
+
+export default connect(mapStateToProps, { addRooms, getUsers })(PrivateRoute);

@@ -88,11 +88,13 @@ export default class ChatHeader extends React.Component {
             {this.state.status}
           </span>
         </div>
-        <i
-          className="fas fa-user-plus fa-lg"
-          style={{ cursor: "pointer" }}
-          onClick={this.handleAddUser}
-        ></i>
+        {this.props.currentRoom.type === "group" && (
+          <i
+            className="fas fa-user-plus fa-lg"
+            style={{ cursor: "pointer" }}
+            onClick={this.handleAddUser}
+          ></i>
+        )}
       </div>
     );
   }

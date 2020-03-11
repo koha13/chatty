@@ -5,7 +5,8 @@ import {
   FETCHING_MESSAGE,
   FETCH_MORE_MSG,
   ADD_MORE_MSG,
-  NO_MORE_MSG
+  NO_MORE_MSG,
+  DELETE_ALL_MESSAGES
 } from "../actions/messages";
 
 const messages = (
@@ -18,6 +19,13 @@ const messages = (
         data: [...state.data],
         status: "sending",
         moreMsgStatus: state.moreMsgStatus
+      };
+    }
+    case DELETE_ALL_MESSAGES: {
+      return {
+        data: [],
+        status: "done",
+        moreMsgStatus: "done"
       };
     }
     case FETCHING_MESSAGE: {

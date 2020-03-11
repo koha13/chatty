@@ -7,6 +7,7 @@ export const FETCHING_MESSAGE = "FETCHING_MESSAGE";
 export const FETCH_MORE_MSG = "FETCH_MORE_MSG";
 export const ADD_MORE_MSG = "ADD_MORE_MSG";
 export const NO_MORE_MSG = "NO_MORE_MSG";
+export const DELETE_ALL_MESSAGES = "DELETE_ALL_MESSAGES";
 
 // Fetch messages in current room from api and add to store.messages
 export const getMessages = () => {
@@ -21,6 +22,13 @@ export const getMessages = () => {
       .then(res => {
         dispatch({ type: GET_MESSAGES, payload: res.data });
       });
+  };
+};
+
+// DeleteAllMessage
+export const deleteMessage = () => {
+  return {
+    type: DELETE_ALL_MESSAGES
   };
 };
 
