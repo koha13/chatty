@@ -7,6 +7,7 @@ import {
   addNewRoom,
   newUsersToRoom
 } from "../redux/actions/rooms";
+import { newUser } from "../redux/actions/users";
 
 const setupSocketIo = () => {
   const socket = io("http://localhost:3000", {
@@ -39,5 +40,9 @@ const setupSocketIo = () => {
   socket.on("newUserInRoom", data => {
     store.dispatch(newUsersToRoom(data));
   });
+  socket.on("newUser", data => {
+    store.dispatch(newUser(data));
+  });
 };
+
 export default setupSocketIo;
