@@ -48,8 +48,15 @@ export default class ChatHeader extends React.Component {
         this.setState({ nameRoom: name });
       }
       if (this.props.currentRoom.type === "group") {
-        this.setState({ status: "online" });
-      } else this.setState({ status: userGet[0].status });
+        this.setState({
+          status: "online",
+          avatarRoom: "https://image.flaticon.com/icons/png/512/32/32441.png"
+        });
+      } else
+        this.setState({
+          status: userGet[0].status,
+          avatarRoom: userGet[0].avatar
+        });
     }
   }
 

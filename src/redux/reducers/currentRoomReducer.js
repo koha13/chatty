@@ -5,7 +5,7 @@ import _ from "lodash";
 const currentRoom = (state = {}, action) => {
   switch (action.type) {
     case CHANGE_CURRENT_ROOM:
-      return action.payload.room;
+      return _.cloneDeep(action.payload.room);
     case UPDATE_STATUS_USER_IN_ROOM: {
       if (_.isEmpty(state)) return state;
       let temp = _.cloneDeep(state);
