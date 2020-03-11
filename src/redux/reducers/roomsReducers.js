@@ -4,7 +4,8 @@ import {
   UPDATE_READ_STATUS,
   ADD_NEW_ROOM,
   FETCHING_ROOM,
-  CREATING_ROOM
+  CREATING_ROOM,
+  NEW_USER_TO_ROOM
 } from "../actions/rooms";
 import _ from "lodash";
 
@@ -55,6 +56,17 @@ const rooms = (state = { status: "done", data: [] }, action) => {
       action.payload.read = false;
       temp.data.unshift(action.payload);
       temp.status = "created";
+      return temp;
+    }
+
+    case NEW_USER_TO_ROOM: {
+      let temp = _.cloneDeep(state);
+      for (let i = 0; i < temp.data.length; i++) {
+        if (temp.data[i]._id === action.payload.room) {
+          temp.data[i].users.push(...action.payload.users);
+          break;
+        }
+      }
       return temp;
     }
     default:

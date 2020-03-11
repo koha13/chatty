@@ -1,5 +1,5 @@
 import { CHANGE_CURRENT_ROOM } from "../actions/currentRoom";
-import { UPDATE_STATUS_USER_IN_ROOM } from "../actions/rooms";
+import { UPDATE_STATUS_USER_IN_ROOM, NEW_USER_TO_ROOM } from "../actions/rooms";
 import _ from "lodash";
 
 const currentRoom = (state = {}, action) => {
@@ -15,6 +15,14 @@ const currentRoom = (state = {}, action) => {
         }
       }
       return temp;
+    }
+    case NEW_USER_TO_ROOM: {
+      if (action.payload.room === state._id) {
+        let temp = _.cloneDeep(state);
+        temp.users.push(action.payload.users);
+        return temp;
+      }
+      return state;
     }
     default:
       return state;

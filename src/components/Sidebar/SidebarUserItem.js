@@ -39,24 +39,24 @@ class SidebarUserItem extends React.Component {
       });
   }
 
-  // componentDidUpdate(previousProps) {
-  //   if (previousProps.room !== this.props.room) {
-  //     if (this.props.room.name) {
-  //       this.setState({ nameRoom: this.props.room.name });
-  //     }
+  componentDidUpdate(previousProps) {
+    if (previousProps.room !== this.props.room) {
+      if (this.props.room.name) {
+        this.setState({ nameRoom: this.props.room.name });
+      }
 
-  //     let userGet = this.props.room.users.filter(
-  //       user => user._id !== this.props.user._id
-  //     );
-  //     let name = userGet[0].name;
-  //     for (let i = 1; i < userGet.length; i++) {
-  //       name += ", " + userGet[i].name;
-  //     }
-  //     this.setState({ members: name });
-  //     if (this.props.room.type === "group") this.setState({ status: "online" });
-  //     else this.setState({ status: userGet[0].status });
-  //   }
-  // }
+      let userGet = this.props.room.users.filter(
+        user => user._id !== this.props.user._id
+      );
+      let name = userGet[0].name;
+      for (let i = 1; i < userGet.length; i++) {
+        name += ", " + userGet[i].name;
+      }
+      this.setState({ members: name });
+      if (this.props.room.type === "group") this.setState({ status: "online" });
+      else this.setState({ status: userGet[0].status });
+    }
+  }
 
   handleChangeRoom = () => {
     this.props.changeCurrentRoom(this.props.room);

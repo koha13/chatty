@@ -6,6 +6,7 @@ export const UPDATE_READ_STATUS = "UPDATE_READ_STATUS";
 export const ADD_NEW_ROOM = "ADD_NEW_ROOM";
 export const FETCHING_ROOM = "FETCHING_ROOM";
 export const CREATING_ROOM = "CREATING_ROOM";
+export const NEW_USER_TO_ROOM = "NEW_USER_TO_ROOM";
 
 // Fetch rooms from api and add to store.rooms
 export const addRooms = () => {
@@ -82,5 +83,13 @@ export const updateUserStatusInRoom = (user, status) => {
       user,
       status
     }
+  };
+};
+
+// Add user to room
+export const newUsersToRoom = data => {
+  return {
+    type: NEW_USER_TO_ROOM,
+    payload: data
   };
 };
