@@ -1,11 +1,18 @@
 import React from "react";
 import Avatar from "@material-ui/core/Avatar";
+import AddUser from "./AddUser/AddUser";
 
 export default class ChatHeader extends React.Component {
   state = {
     nameRoom: "   ",
     status: "offline",
-    avatarRoom: ""
+    avatarRoom: "",
+    addUser: false
+  };
+
+  handleAddUser = e => {
+    if (e) e.preventDefault();
+    this.setState(state => ({ addUser: !state.addUser }));
   };
 
   componentDidMount() {
@@ -66,6 +73,7 @@ export default class ChatHeader extends React.Component {
         <div className="img-contain m-2" style={{ width: "50px" }}>
           <Avatar src={this.state.avatarRoom} />
         </div>
+        {this.state.addUser && <AddUser closeModal={this.handleAddUser} />}
         <div className="flex-grow-1 d-flex flex-column justify-content-center">
           <h6 className="p-0 m-0">{this.state.nameRoom}</h6>
 
@@ -80,7 +88,11 @@ export default class ChatHeader extends React.Component {
             {this.state.status}
           </span>
         </div>
-        <i className="fas fa-user-plus fa-lg" style={{ cursor: "pointer" }}></i>
+        <i
+          className="fas fa-user-plus fa-lg"
+          style={{ cursor: "pointer" }}
+          onClick={this.handleAddUser}
+        ></i>
       </div>
     );
   }

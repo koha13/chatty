@@ -19,7 +19,7 @@ const currentRoom = (state = {}, action) => {
     case NEW_USER_TO_ROOM: {
       if (action.payload.room === state._id) {
         let temp = _.cloneDeep(state);
-        temp.users.push(action.payload.users);
+        temp.users.push(...action.payload.users);
         return temp;
       }
       return state;

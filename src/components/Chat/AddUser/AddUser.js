@@ -4,24 +4,22 @@ import Button from "@material-ui/core/Button";
 import SearchChipList from "./SearchChipList";
 import AddedChipList from "./AddedChipList";
 import { connect } from "react-redux";
-import { createRoom } from "../../redux/actions/rooms";
-import { withRouter } from "react-router-dom";
+import roomApi from "../../../axios/room";
 
-class AddRoom extends React.Component {
+class AddUser extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      roomName: "",
       search: "",
       usersAdded: [],
-      roomNameError: false,
-      roomNameErrorMsg: ""
+      userAlreadyIn: []
     };
   }
 
-  handleNameChange = e => {
-    this.setState({ roomName: e.target.value.trim() });
-  };
+  componentDidMount() {
+    this.setState({ userAlreadyIn: [...this.props.usersAddedInRoom] });
+  }
+
   handleSearchChange = e => {
     this.setState({ search: e.target.value });
   };
@@ -43,30 +41,23 @@ class AddRoom extends React.Component {
   };
 
   handleSubmit = () => {
-    if (this.state.usersAdded.length === 0) {
-      this.setState({
-        roomNameErrorMsg: "No user is added",
-        roomNameError: true
-      });
-    } else {
-      let users = this.state.usersAdded.map(user => user._id);
-      let data = { users };
-      if (this.state.roomName !== "")
-        data = { ...data, name: this.state.roomName };
-      this.props.createRoom(data);
-    }
+    let users = this.state.usersAdded.map(user => user._id);
+    roomApi.post(
+      "/" + this.props.roomId + "/add",
+      { users },
+      {
+        headers: {
+          Authorization: "Bearer " + this.props.token
+        }
+      }
+    );
+    this.props.closeModal();
   };
-
-  componentDidUpdate(prevProps) {
-    if (this.props.status === "created" && prevProps.status === "creating") {
-      this.props.history.goBack();
-    }
-  }
 
   render() {
     return (
       <div
-        onClick={() => this.props.history.goBack()}
+        onClick={() => this.props.closeModal()}
         style={{
           position: "fixed",
           top: 0,
@@ -94,22 +85,7 @@ class AddRoom extends React.Component {
             border: "2px solid #444"
           }}
         >
-          <h1 style={{ textAlign: "center" }}>Create room</h1>
-          <form
-            style={{ margin: "20px 0" }}
-            onSubmit={e => {
-              e.preventDefault();
-            }}
-          >
-            <TextField
-              value={this.state.roomName}
-              onChange={this.handleNameChange}
-              id="outlined-basic"
-              label="Room's name"
-              variant="outlined"
-              style={{ width: "100%" }}
-            />
-          </form>
+          <h1 style={{ textAlign: "center" }}>Add users</h1>
           <div style={{ margin: "10px 0" }}>
             {this.state.roomNameError && (
               <p style={{ color: "red" }}>{this.state.roomNameErrorMsg}</p>
@@ -131,6 +107,7 @@ class AddRoom extends React.Component {
             />
             <SearchChipList
               usersAdded={this.state.usersAdded}
+              userAlreadyIn={this.state.userAlreadyIn}
               users={this.props.users}
               search={this.state.search}
               handleAddChip={this.handleAddChip}
@@ -146,18 +123,15 @@ class AddRoom extends React.Component {
             <Button
               variant="contained"
               color="primary"
-              disabled={
-                this.props.status === "creating" ||
-                this.state.usersAdded.length <= 0
-              }
               onClick={this.handleSubmit}
+              disabled={this.state.usersAdded.length === 0}
             >
-              Create
+              Add
             </Button>
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => this.props.history.goBack()}
+              onClick={() => this.props.closeModal()}
             >
               Cancle
             </Button>
@@ -169,6 +143,8 @@ class AddRoom extends React.Component {
 }
 const mapStateToProps = state => ({
   users: state.users,
-  status: state.rooms.status
+  usersAddedInRoom: state.currentRoom.users,
+  roomId: state.currentRoom._id,
+  token: state.user.token
 });
-export default withRouter(connect(mapStateToProps, { createRoom })(AddRoom));
+export default connect(mapStateToProps)(AddUser);
