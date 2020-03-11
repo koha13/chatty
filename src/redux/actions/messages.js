@@ -4,6 +4,9 @@ export const GET_MESSAGES = "GET_MESSAGES";
 export const ADD_MESSAGE = "ADD_MESSAGE";
 export const SENDING_MESSAGE = "SENDING_MESSAGE";
 export const FETCHING_MESSAGE = "FETCHING_MESSAGE";
+export const FETCH_MORE_MSG = "FETCH_MORE_MSG";
+export const ADD_MORE_MSG = "ADD_MORE_MSG";
+export const NO_MORE_MSG = "NO_MORE_MSG";
 
 // Fetch messages in current room from api and add to store.messages
 export const getMessages = () => {
@@ -21,6 +24,28 @@ export const getMessages = () => {
   };
 };
 
+export const moreMessages = () => {
+  return (dispatch, getState) => {
+    dispatch(moreMsg());
+    messageApi
+      .get("/" + getState().currentRoom._id, {
+        params: {
+          skip: getState().messages.data.length
+        },
+        headers: {
+          Authorization: "Bearer " + getState().user.token
+        }
+      })
+      .then(res => {
+        if (res.data.length > 0)
+          dispatch({ type: ADD_MORE_MSG, payload: res.data });
+        else {
+          dispatch(noMoreMsg());
+        }
+      });
+  };
+};
+
 // Sending message action
 const sendingMessage = () => {
   return {
@@ -32,6 +57,20 @@ const sendingMessage = () => {
 const fetchingMessage = () => {
   return {
     type: FETCHING_MESSAGE
+  };
+};
+
+// More msg
+const moreMsg = () => {
+  return {
+    type: FETCH_MORE_MSG
+  };
+};
+
+// No more msg
+const noMoreMsg = () => {
+  return {
+    type: NO_MORE_MSG
   };
 };
 
