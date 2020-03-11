@@ -3,7 +3,8 @@ import store from "../redux/store";
 import { newMessage } from "../redux/actions/messages";
 import {
   updateUserStatusInRoom,
-  updateReadStatus
+  updateReadStatus,
+  addNewRoom
 } from "../redux/actions/rooms";
 
 const setupSocketIo = () => {
@@ -32,6 +33,9 @@ const setupSocketIo = () => {
   });
 
   socket.on("newRoom", data => {
+    store.dispatch(addNewRoom(data));
+  });
+  socket.on("newUserInRoom", data => {
     console.log(data);
   });
 };

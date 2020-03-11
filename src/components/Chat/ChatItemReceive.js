@@ -27,7 +27,9 @@ class ChatItemReceive extends React.Component {
 }
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.users.filter(user => user._id === ownProps.message.user)
+    user: state.currentRoom.users.filter(
+      user => user._id === ownProps.message.user
+    )
   };
 };
 export default connect(mapStateToProps)(ChatItemReceive);

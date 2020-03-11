@@ -10,7 +10,10 @@ const user = (state = { status: "done", data: {} }, action) => {
     case LOG_IN:
       return { ...action.payload };
     case INVALID_LOGIN: {
-      return { ...state, isInvalid: true, isFetching: false };
+      return {
+        data: {},
+        status: "fail"
+      };
     }
     case REQUEST_LOGIN: {
       return {
@@ -29,7 +32,7 @@ const user = (state = { status: "done", data: {} }, action) => {
     case "LOG_IN_FAIL": {
       return {
         data: {},
-        status: "done"
+        status: "fail"
       };
     }
 
