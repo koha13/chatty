@@ -1,16 +1,24 @@
 import React from "react";
 import TextField from "@material-ui/core/TextField";
 import axios from "axios";
+import GifElement from "./GifElement";
 
 class SearchGif extends React.Component {
   state = {
-    search: "",
+    search: "trending",
     data: []
   };
 
-  fetchData = e => {
-    e.preventDefault();
+  componentDidMount() {
+    this.fetchData();
+  }
 
+  handleSubmit = async e => {
+    e.preventDefault();
+    this.fetchData();
+  };
+
+  fetchData = () => {
     axios
       .post(
         "https://api.tenor.com/v1/search?key=43TZW7V8IHV3&limit=15&q=" +
@@ -18,7 +26,6 @@ class SearchGif extends React.Component {
       )
       .then(res => {
         this.setState({ data: res.data.results });
-        console.log(res.data.results);
       });
   };
 
@@ -29,7 +36,7 @@ class SearchGif extends React.Component {
   render() {
     return (
       <div className="search-gif">
-        <form style={{ marginBottom: "10px" }} onSubmit={this.fetchData}>
+        <form style={{ marginBottom: "10px" }} onSubmit={this.handleSubmit}>
           <TextField
             id="outlined-basic"
             label="Search gif"
@@ -42,9 +49,7 @@ class SearchGif extends React.Component {
         </form>
         <div className="container">
           {this.state.data.map(gif => (
-            <div key={gif.id}>
-              <img src={gif.media[0].tinygif.url} alt={gif.id} />
-            </div>
+            <GifElement key={gif.id} gif={gif} />
           ))}
         </div>
       </div>

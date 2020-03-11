@@ -116,6 +116,12 @@
   word-wrap: break-word;
   background-color: #f3d476;
 }
+.msg_receive_media {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 10px;
+  border-radius: 10px;
+}
 .msg_cotainer_send {
   margin-top: auto;
   margin-bottom: auto;
@@ -126,6 +132,12 @@
   max-width: 50%;
   word-wrap: break-word;
   background-color: beige;
+}
+.msg_send_media {
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-right: 10px;
+  border-radius: 10px;
 }
 .msg_time {
   position: absolute;

@@ -3,10 +3,11 @@ import React from "react";
 export default ({ message }) => {
   return (
     <div className="d-flex justify-content-end mb-2">
-      <pre className="msg_cotainer_send">
-        {message.content}
-        {/* <span className="msg_time_send">{message.createdAt}</span> */}
-      </pre>
+      {message.type === "message" ? (
+        <div className="msg_cotainer_send">{message.content}</div>
+      ) : (
+        <img src={message.content} className="msg_send_media" alt="gif" />
+      )}
     </div>
   );
 };
