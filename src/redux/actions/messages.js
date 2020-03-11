@@ -36,14 +36,15 @@ const fetchingMessage = () => {
 };
 
 // Post new messages to api and add to store.messages
-export const sendMessage = contentMessage => {
+export const sendMessage = message => {
   return (dispatch, getState) => {
     dispatch(sendingMessage());
     messageApi
       .post(
         "/" + getState().currentRoom._id,
         {
-          content: contentMessage
+          type: message.type,
+          content: message.content
         },
         {
           headers: {

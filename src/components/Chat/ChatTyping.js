@@ -14,7 +14,10 @@ class ChatTyping extends React.Component {
   };
 
   handleSubmit = () => {
-    this.props.sendMessage(this.state.chatContent);
+    this.props.sendMessage({
+      content: this.state.chatContent,
+      type: "message"
+    });
     this.setState({ chatContent: "" });
   };
 
