@@ -11,14 +11,21 @@ class LoginScreen extends Component {
     email: "",
     password: "",
     errorEmail: "",
-    errorPassword: ""
+    errorPassword: "",
+    fromState: ""
   };
 
-  static getDerivedStateFromProps(nxtProps) {
+  static getDerivedStateFromProps(nxtProps, state) {
     if (nxtProps.user.token) {
-      nxtProps.history.push("/room");
+      nxtProps.history.push(state.fromState);
     }
     return null;
+  }
+
+  componentDidMount() {
+    this.setState({
+      fromState: this.props.history.location.state.from.pathname
+    });
   }
 
   handleInputChange = event => {
