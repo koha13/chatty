@@ -139,6 +139,24 @@
   margin-right: 10px;
   border-radius: 10px;
 }
+@media only screen and (max-width: 700px) {
+  .cb-content {
+    padding: 2px !important;
+  }
+  .msg_cotainer {
+    margin-left: 2px;
+  }
+  .msg_receive_media {
+    margin-left: 2px;
+  }
+  .msg_cotainer_send {
+    margin-right: 2px;
+    max-width: 50%;
+  }
+  .msg_send_media {
+    margin-right: 2px;
+  }
+}
 .msg_time {
   position: absolute;
   left: 0;

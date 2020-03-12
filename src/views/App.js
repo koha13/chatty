@@ -26,7 +26,9 @@ export default class App extends React.Component {
           >
             <Header />
             <div className="row content">
-              {window.innerWidth > 1000 ? <Sidebar /> : null}
+              <Route path="/room">
+                <Sidebar />
+              </Route>
               <Switch>
                 <Route exact path="/room/:idRoom">
                   <Chat />

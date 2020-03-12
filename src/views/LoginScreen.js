@@ -16,7 +16,7 @@ class LoginScreen extends Component {
 
   static getDerivedStateFromProps(nxtProps) {
     if (nxtProps.user.token) {
-      nxtProps.history.push("/");
+      nxtProps.history.push("/room");
     }
     return null;
   }
