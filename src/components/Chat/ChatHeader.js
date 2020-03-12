@@ -41,7 +41,10 @@ export default class ChatHeader extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.currentRoom !== this.props.currentRoom) {
+    if (
+      prevProps.currentRoom !== this.props.currentRoom &&
+      this.props.currentRoom.users
+    ) {
       let userGet = this.props.currentRoom.users.filter(
         user => user._id !== this.props.user._id
       );

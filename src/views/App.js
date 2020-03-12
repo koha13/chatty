@@ -2,7 +2,7 @@ import React from "react";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar/";
 import Chat from "../components/Chat/";
-import { Switch, Route } from "react-router-dom";
+import { Switch, Route, Redirect } from "react-router-dom";
 import LoginScreen from "./LoginScreen";
 import PrivateRoute from "./PrivateRoute";
 import SignupScreen from "./Signup";
@@ -26,6 +26,9 @@ export default class App extends React.Component {
           >
             <Header />
             <div className="row content">
+              <Route exact path="/">
+                <Redirect to="/room" />
+              </Route>
               <Route path="/room">
                 <Sidebar />
               </Route>

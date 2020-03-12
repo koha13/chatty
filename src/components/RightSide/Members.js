@@ -13,14 +13,16 @@ class Members extends React.Component {
         >
           Members
         </p>
-        {this.props.users.map(user => (
-          <Chip
-            key={user._id}
-            style={{ margin: "5px" }}
-            avatar={<Avatar alt={user.name} src={user.avatar} />}
-            label={user.name}
-          />
-        ))}
+        {this.props.users
+          ? this.props.users.map(user => (
+              <Chip
+                key={user._id}
+                style={{ margin: "5px" }}
+                avatar={<Avatar alt={user.name} src={user.avatar} />}
+                label={user.name}
+              />
+            ))
+          : null}
       </div>
     );
   }

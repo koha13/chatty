@@ -58,17 +58,12 @@ class SidebarUserItem extends React.Component {
     }
   }
 
-  handleChangeRoom = () => {
-    this.props.changeCurrentRoom(this.props.room);
-  };
-
   render() {
     return (
       <NavLink
         to={"/room/" + this.props.room._id}
         className="list-group-item list-group-item-action rounded-0 usb-user "
         activeClassName="active"
-        onClick={this.handleChangeRoom}
       >
         <div className="media">
           <Badge
