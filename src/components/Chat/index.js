@@ -6,6 +6,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 import roomApi from "../../axios/room";
 import { changeCurrentRoom } from "../../redux/actions/currentRoom";
+import RightSide from "../RightSide/index";
 
 class Chat extends React.Component {
   state = { loaded: false };
@@ -22,6 +23,10 @@ class Chat extends React.Component {
         .then(res => {
           this.props.changeCurrentRoom(res.data);
           this.setState({ loaded: true });
+        })
+        .catch(err => {
+          if (err)
+            if (this.state.loaded !== "fail") this.setState({ loaded: "fail" });
         });
     }
   }
@@ -39,26 +44,38 @@ class Chat extends React.Component {
         .then(res => {
           this.props.changeCurrentRoom(res.data);
           if (this.state.loaded === false) this.setState({ loaded: true });
+        })
+        .catch(err => {
+          if (err)
+            if (this.state.loaded !== "fail") this.setState({ loaded: "fail" });
         });
     }
   }
 
   render() {
     return (
-      <div className="col-lg-6 col-sm-12 px-0 chat-box d-flex flex-column">
-        {this.state.loaded && (
-          <React.Fragment>
-            <ChatHeader
-              currentRoom={this.props.currentRoom}
-              user={this.props.user}
-            />
+      <React.Fragment>
+        <div className="col-lg-6 col-sm-12 px-0 chat-box d-flex flex-column">
+          {this.state.loaded === true && (
+            <React.Fragment>
+              <ChatHeader
+                currentRoom={this.props.currentRoom}
+                user={this.props.user}
+              />
 
-            <ChatBody />
+              <ChatBody />
 
-            <ChatTyping />
-          </React.Fragment>
-        )}
-      </div>
+              <ChatTyping />
+            </React.Fragment>
+          )}
+          {this.state.loaded === "fail" && (
+            <div className="cb-content px-4 pt-2 flex-grow-1">
+              Loaded failed
+            </div>
+          )}
+        </div>
+        {this.state.loaded === true && <RightSide />}
+      </React.Fragment>
     );
   }
 }
