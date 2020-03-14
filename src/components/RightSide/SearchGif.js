@@ -45,6 +45,7 @@ class SearchGif extends React.Component {
             value={this.state.search}
             onChange={this.handleChange}
             type="search"
+            style={{ color: "white" }}
           />
         </form>
         <div className="container">

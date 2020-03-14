@@ -7,12 +7,6 @@ class Members extends React.Component {
   render() {
     return (
       <div className="members">
-        <p
-          className="mb-1"
-          style={{ textAlign: "center", color: "beige", fontSize: "20px" }}
-        >
-          Members
-        </p>
         {this.props.users
           ? this.props.users.map(user => (
               <Chip
