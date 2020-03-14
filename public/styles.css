@@ -22,7 +22,7 @@
 }
 ::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  background-color: rgb(23, 24, 32);
+  background-color: var(--second-color);
 }
 body {
   background-color: var(--main-color);
@@ -85,8 +85,9 @@ body {
 }
 .chat-box .cb-header {
   height: 60px;
-  background-color: var(--second-color);
+  background-color: var(--main-color);
   color: white;
+  border-bottom: solid 2px black;
 }
 .chat-box .cb-header .img-contain {
   width: 50px;

@@ -12,7 +12,7 @@ class LoginScreen extends Component {
     password: "",
     errorEmail: "",
     errorPassword: "",
-    fromState: ""
+    fromState: "/"
   };
 
   static getDerivedStateFromProps(nxtProps, state) {
@@ -23,9 +23,11 @@ class LoginScreen extends Component {
   }
 
   componentDidMount() {
-    this.setState({
-      fromState: this.props.history.location.state.from.pathname
-    });
+    console.log(this.props);
+    if (this.props.history.location.state)
+      this.setState({
+        fromState: this.props.history.location.state.from.pathname
+      });
   }
 
   handleInputChange = event => {

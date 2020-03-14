@@ -2,7 +2,6 @@ import React from "react";
 import { connect } from "react-redux";
 import { sendMessage } from "../../redux/actions/messages";
 import TextareaAutosize from "react-textarea-autosize";
-import Loading from "../Loading";
 
 class ChatTyping extends React.Component {
   state = {
@@ -48,15 +47,11 @@ class ChatTyping extends React.Component {
           />
           <div className="input-group-append">
             <span className="input-group-text">
-              {this.props.status === "sending" ? (
-                <Loading size={" "} />
-              ) : (
-                <i
-                  className="fa fa-paper-plane"
-                  onClick={this.handleSubmit}
-                  style={{ cursor: "pointer" }}
-                ></i>
-              )}
+              <i
+                className="fa fa-paper-plane"
+                onClick={this.handleSubmit}
+                style={{ cursor: "pointer" }}
+              ></i>
             </span>
           </div>
         </div>
@@ -65,10 +60,4 @@ class ChatTyping extends React.Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    status: state.messages.status
-  };
-};
-
-export default connect(mapStateToProps, { sendMessage })(ChatTyping);
+export default connect(null, { sendMessage })(ChatTyping);
