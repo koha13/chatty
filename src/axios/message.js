@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const message = axios.create({
-  baseURL: "http://localhost:3000/api/message",
+  baseURL: "http://localhost:3005/api/message",
   timeout: 5000
 });
 

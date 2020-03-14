@@ -10,7 +10,7 @@ import {
 import { newUser } from "../redux/actions/users";
 
 const setupSocketIo = () => {
-  const socket = io("http://localhost:3000", {
+  const socket = io("http://localhost:3005", {
     query: "token=" + store.getState().user.token
   });
 
@@ -42,6 +42,9 @@ const setupSocketIo = () => {
   });
   socket.on("newUser", data => {
     store.dispatch(newUser(data));
+  });
+  socket.on("test", data => {
+    console.log(data);
   });
 };
 

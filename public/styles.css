@@ -151,6 +151,9 @@ body {
   margin-right: 10px;
   border-radius: 10px;
 }
+.msg_cotainer_noti {
+  color: white;
+}
 @media only screen and (max-width: 700px) {
   .cb-content {
     padding: 2px !important;
